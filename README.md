@@ -31,3 +31,11 @@ The response should contain an array of the following information extracted from
 "age": Integer
 }...]
 ```
+## Install Certs
+1. Get certificates
+	* Use a browser to go to  https://repo.maven.apache.org/
+	* Click on lock icon and choose "View Certificate"
+	* Go to the "Details" tab and choose "Save to File"
+	* Choose type "Base 64 X.509 (.CER)" and save it somewhere
+	* Now open a command prompt and type (use your own paths):  
+	`"$JAVA_HOME"/bin/keytool -import -noprompt -trustcacerts -alias mavenroot -file mavenCert.cer -keystore "$JAVA_HOME"/jre/lib/security/cacerts`
