@@ -1,4 +1,4 @@
-package com.angmas.mutation.restservice;
+package com.angmas.mutation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
