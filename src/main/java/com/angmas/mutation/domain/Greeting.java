@@ -1,4 +1,4 @@
-package com.angmas.mutation.restservice;
+package com.angmas.mutation.domain;
 
 public class Greeting {
 
