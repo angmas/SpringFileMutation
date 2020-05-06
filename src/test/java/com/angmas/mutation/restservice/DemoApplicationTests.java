@@ -1,4 +1,4 @@
-package com.springFileMutation.demo;
+package com.angmas.mutation.restservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -31,6 +31,10 @@ The response should contain an array of the following information extracted from
 "age": Integer
 }...]
 ```
+
+## Run service  
+`mvn spring-boot:run`  
+
 ## Install Certs
 1. Get certificates
 	* Use a browser to go to  https://repo.maven.apache.org/
