@@ -23,6 +23,8 @@ public class XmlToPolicyMappingService {
 	private XMLEventReader xmlEventReader;
 	private List<Policy> policies;
 	private Policy policy;
+	private String customerNameHold;
+	private boolean isInsuredOrPrincipalRole;
 	
 	public XmlToPolicyMappingService() {
 		super();
@@ -67,16 +69,40 @@ public class XmlToPolicyMappingService {
 				event = xmlEventReader.nextEvent();
 				policy.setPolicyNumber(event.asCharacters().getData());
 				break;
+			
+			case "CommercialName":
+				event = xmlEventReader.nextEvent();
+				customerNameHold = event.asCharacters().getData();
+				break;
+				
+			case "InsuredOrPrincipalRoleCd":
+				event = xmlEventReader.nextEvent();
+				String insuredOrPrincipalRoleCd = event.asCharacters().getData();
+				isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
+				break;
 			}
 	
 		}
 
 	private void doEndElementProcessing(XMLEvent event, Policy policy) {
 		EndElement endElement = event.asEndElement();
-        if (endElement.getName().getLocalPart().equals("PersAutoPolicyQuoteInqRq")) {
-            policies.add(policy);
-        }		
+		switch (endElement.getName().getLocalPart()) {
+		case "PersAutoPolicyQuoteInqRq":
+			policies.add(policy);
+			break;
+		case "InsuredOrPrincipal":
+			if (isInsuredOrPrincipalRole) {
+				policy.setCustomerName(customerNameHold);
+			} else {
+				customerNameHold = "";
+			}
+			
+			isInsuredOrPrincipalRole = false;
+				
+			break;
+		}
 	}
+	
 
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory.newInstance();

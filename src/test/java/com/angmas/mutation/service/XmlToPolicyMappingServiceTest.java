@@ -60,6 +60,15 @@ class XmlToPolicyMappingServiceTest {
 		);
 	}
 	
+	@Test
+	void mapsCustomerNames() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		assertAll("policy numbers",
+			() -> assertEquals( "Tyrion Spiegelman", policies.get(0).getCustomerName()),
+			() -> assertEquals("Fred Flinstone", policies.get(1).getCustomerName()),
+			() -> assertEquals("Mickey Mouse", policies.get(2).getCustomerName())
+		);
+	}
 	
 
 }
