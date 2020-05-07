@@ -19,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.angmas.mutation.domain.Policy;
+import com.angmas.mutation.domain.Vehicle;
 
 class XmlToPolicyMappingServiceTest {
 	
@@ -98,6 +99,19 @@ class XmlToPolicyMappingServiceTest {
 				() -> assertEquals( 5, policies.get(0).getVehicles().size()),
 				() -> assertEquals( 1, policies.get(1).getVehicles().size()),
 				() -> assertEquals( 2, policies.get(2).getVehicles().size())
+		);
+	}
+	
+	@Test
+	void addVehicleIds() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Vehicle> vehicles = policies.get(0).getVehicles();
+		assertAll("vehicle ids",
+				() -> assertEquals( "V1", policies.get(0).getVehicles().get(0).getId()),
+				() -> assertEquals( "V2", policies.get(0).getVehicles().get(1).getId()),
+				() -> assertEquals( "V3", policies.get(0).getVehicles().get(2).getId()),
+				() -> assertEquals( "V4", policies.get(0).getVehicles().get(3).getId()),
+				() -> assertEquals( "V5", policies.get(0).getVehicles().get(4).getId())
 		);
 	}
 }
