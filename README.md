@@ -24,6 +24,24 @@ The response should contain an array of the following information extracted from
 "vehichles": [{
 "make" : String,
 "model": String,
+"modelYear": String
+}...],
+"drivers" : [{
+"driverName": String,
+"age": Integer
+}...]
+```
+## Response Format 
+The response should contain an array of the following information extracted from the file and a count of the number of entries: 
+```json
+{
+"policyNumber": String,
+"customerName": String,
+"PolicyType": String,
+"totalPremium": Float,
+"vehichles": [{
+"make" : String,
+"model": String,
 "liscenceNumber": String
 }...],
 "drivers" : [{
