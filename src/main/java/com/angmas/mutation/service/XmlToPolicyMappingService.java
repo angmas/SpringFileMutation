@@ -1,5 +1,6 @@
 package com.angmas.mutation.service;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -10,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
@@ -17,6 +19,7 @@ import javax.xml.stream.events.XMLEvent;
 
 
 import com.angmas.mutation.domain.Policy;
+import com.angmas.mutation.domain.Vehicle;
 
 public class XmlToPolicyMappingService {
 
@@ -28,6 +31,7 @@ public class XmlToPolicyMappingService {
 	private String lobCdHold;
 	private boolean inPersPolicyNode;
 	private String amtHold;
+	private Vehicle vehicle;
 	
 	public XmlToPolicyMappingService() {
 		super();
@@ -85,9 +89,53 @@ public class XmlToPolicyMappingService {
 			case "Amt":
 				doAmtStartProcessing(event);
 				break;
+			case "PersVeh":
+				doPersVehStartProcessing(event, startElement);
+				break;
 			}
 	
 		}
+
+	private void doEndElementProcessing(XMLEvent event) {
+		EndElement endElement = event.asEndElement();
+		switch (endElement.getName().getLocalPart()) {
+		case "PersAutoPolicyQuoteInqRq":
+			doPersAutoPolicyQuoteInqRqEndProcesing();
+			break;
+		case "InsuredOrPrincipal":
+			doInsuredOrPrincipalEndProcessing();
+			break;
+		case "PersPolicy":
+			doPersPolicyEndProcessing();
+			break;
+		case "CurrentTermAmt":
+			doCurrentTermAmtEndProcessing();
+			break;
+		case "PersVeh":
+			doPersVehEndProcessing();
+			break;
+		}
+	}
+
+	private void doPersAutoPolicyQuoteInsRqStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		policy = new Policy();
+	}
+
+	private void doPersAutoPolicyQuoteInqRqEndProcesing() {
+		policies.add(policy);
+	}
+
+	private void doPersVehStartProcessing(XMLEvent event, StartElement startElement) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		vehicle = new Vehicle();
+		Attribute id = startElement.getAttributeByName(new QName("id"));
+		vehicle.setId(id.getValue());
+	}
+	
+	private void doPersVehEndProcessing() {
+		policy.getVehicles().add(vehicle);
+	}
 
 	private void doAmtStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
@@ -118,29 +166,6 @@ public class XmlToPolicyMappingService {
 	private void doPersPolicyStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		inPersPolicyNode = true;
-	}
-
-	private void doPersAutoPolicyQuoteInsRqStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
-		policy = new Policy();
-	}
-
-	private void doEndElementProcessing(XMLEvent event) {
-		EndElement endElement = event.asEndElement();
-		switch (endElement.getName().getLocalPart()) {
-		case "PersAutoPolicyQuoteInqRq":
-			policies.add(policy);
-			break;
-		case "InsuredOrPrincipal":
-			doInsuredOrPrincipalEndProcessing();
-			break;
-		case "PersPolicy":
-			doPersPolicyEndProcessing();
-			break;
-		case "CurrentTermAmt":
-			doCurrentTermAmtEndProcessing();
-			break;
-		}
 	}
 
 	private void doCurrentTermAmtEndProcessing() {

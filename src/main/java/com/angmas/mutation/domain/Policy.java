@@ -1,13 +1,22 @@
 package com.angmas.mutation.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Policy {
 	
 	private String policyNumber;
 	private String customerName;
 	private String policyType;
-	private BigDecimal totalPremium; 
+	private BigDecimal totalPremium;
+	private List<Vehicle> vehicles;
+
+	
+	public Policy() {
+		super();
+		this.vehicles = new ArrayList<Vehicle>();
+	}
 
 	public BigDecimal getTotalPremium() {
 		return totalPremium.setScale(2);
@@ -38,9 +47,6 @@ public class Policy {
 		this.customerName = customerName;
 	}
 
-	public Policy() {
-		super();
-	}
 
 	public String getPolicyNumber() {
 		return policyNumber;
@@ -49,6 +55,15 @@ public class Policy {
 	
 	public void setPolicyNumber(String policyNumber) {
 		this.policyNumber = policyNumber;
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 
 }

@@ -64,7 +64,7 @@ class XmlToPolicyMappingServiceTest {
 	@Test
 	void mapsCustomerNames() throws XMLStreamException {
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
-		assertAll("policy numbers",
+		assertAll("customer names",
 			() -> assertEquals( "Tyrion Spiegelman", policies.get(0).getCustomerName()),
 			() -> assertEquals("Fred Flinstone", policies.get(1).getCustomerName()),
 			() -> assertEquals("Mickey Mouse", policies.get(2).getCustomerName())
@@ -74,7 +74,7 @@ class XmlToPolicyMappingServiceTest {
 	@Test
 	void mapsPolicyType() throws XMLStreamException {
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
-		assertAll("policy numbers",
+		assertAll("policy types",
 				() -> assertEquals( "AUTOPA", policies.get(0).getPolicyType()),
 				() -> assertEquals("AUTOPB", policies.get(1).getPolicyType()),
 				() -> assertEquals("AUTOPC", policies.get(2).getPolicyType())
@@ -84,10 +84,20 @@ class XmlToPolicyMappingServiceTest {
 	@Test
 	void mapsTotalPremium() throws XMLStreamException {
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
-		assertAll("policy numbers",
+		assertAll("total premiums",
 				() -> assertEquals( new BigDecimal("2135.19"), policies.get(0).getTotalPremium()),
 				() -> assertEquals(new BigDecimal("300.00"), policies.get(1).getTotalPremium()),
 				() -> assertEquals(new BigDecimal("3000.25"), policies.get(2).getTotalPremium())
 			);
+	}
+	
+	@Test
+	void createsVehicleObjects() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		assertAll("vehicle counts",
+				() -> assertEquals( 5, policies.get(0).getVehicles().size()),
+				() -> assertEquals( 1, policies.get(1).getVehicles().size()),
+				() -> assertEquals( 2, policies.get(2).getVehicles().size())
+		);
 	}
 }
