@@ -48,7 +48,7 @@ public class XmlToPolicyMappingService {
 					doStartElementProcessing(event);
 					break;
 				case XMLStreamConstants.END_ELEMENT:
-					doEndElementProcessing(event, policy);
+					doEndElementProcessing(event);
 					break;
 //				default:
 //					this.xmlEventWriter.add(event);
@@ -125,17 +125,17 @@ public class XmlToPolicyMappingService {
 		policy = new Policy();
 	}
 
-	private void doEndElementProcessing(XMLEvent event, Policy policy) {
+	private void doEndElementProcessing(XMLEvent event) {
 		EndElement endElement = event.asEndElement();
 		switch (endElement.getName().getLocalPart()) {
 		case "PersAutoPolicyQuoteInqRq":
 			policies.add(policy);
 			break;
 		case "InsuredOrPrincipal":
-			doInsuredOrPrincipalEndProcessing(policy);
+			doInsuredOrPrincipalEndProcessing();
 			break;
 		case "PersPolicy":
-			doPersPolicyEndProcessing(policy);
+			doPersPolicyEndProcessing();
 			break;
 		case "CurrentTermAmt":
 			doCurrentTermAmtEndProcessing();
@@ -149,7 +149,7 @@ public class XmlToPolicyMappingService {
 		}
 	}
 
-	private void doInsuredOrPrincipalEndProcessing(Policy policy) {
+	private void doInsuredOrPrincipalEndProcessing() {
 		if (isInsuredOrPrincipalRole) {
 			policy.setCustomerName(customerNameHold);
 		} else {
@@ -159,7 +159,7 @@ public class XmlToPolicyMappingService {
 		isInsuredOrPrincipalRole = false;
 	}
 
-	private void doPersPolicyEndProcessing(Policy policy) {
+	private void doPersPolicyEndProcessing() {
 		policy.setPolicyType(lobCdHold);
 		lobCdHold = "";
 		inPersPolicyNode = false;
