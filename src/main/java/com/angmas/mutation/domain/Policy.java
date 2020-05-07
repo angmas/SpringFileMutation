@@ -5,6 +5,15 @@ public class Policy {
 	
 	private String policyNumber;
 	private String customerName;
+	private String policyType;
+
+	public String getPolicyType() {
+		return policyType;
+	}
+
+	public void setPolicyType(String policyType) {
+		this.policyType = policyType;
+	}
 
 	public String getCustomerName() {
 		return customerName;

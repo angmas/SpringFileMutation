@@ -70,5 +70,13 @@ class XmlToPolicyMappingServiceTest {
 		);
 	}
 	
-
+	@Test
+	void mapsPolicyType() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		assertAll("policy numbers",
+				() -> assertEquals( "AUTOPA", policies.get(0).getPolicyType()),
+				() -> assertEquals("AUTOPB", policies.get(1).getPolicyType()),
+				() -> assertEquals("AUTOPC", policies.get(2).getPolicyType())
+			);
+	}
 }

@@ -25,6 +25,7 @@ public class XmlToPolicyMappingService {
 	private Policy policy;
 	private String customerNameHold;
 	private boolean isInsuredOrPrincipalRole;
+	private String lobCdHold;
 	
 	public XmlToPolicyMappingService() {
 		super();
@@ -80,6 +81,11 @@ public class XmlToPolicyMappingService {
 				String insuredOrPrincipalRoleCd = event.asCharacters().getData();
 				isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
 				break;
+				
+			case "LOBCd":
+				event = xmlEventReader.nextEvent();
+				lobCdHold = event.asCharacters().getData();
+				break;
 			}
 	
 		}
@@ -100,6 +106,9 @@ public class XmlToPolicyMappingService {
 			isInsuredOrPrincipalRole = false;
 				
 			break;
+		case "PersPolicy":
+			policy.setPolicyType(lobCdHold);
+			lobCdHold = "";
 		}
 	}
 	
