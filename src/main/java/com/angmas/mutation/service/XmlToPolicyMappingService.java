@@ -95,6 +95,9 @@ public class XmlToPolicyMappingService {
 			case "Manufacturer":
 				doManufacturerStartProcessing(event);
 				break;
+			case "Model":
+				doModelStartProcessing(event);
+				break;
 			}
 	
 		}
@@ -180,6 +183,11 @@ public class XmlToPolicyMappingService {
 	private void doManufacturerStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		vehicle.setMake(event.asCharacters().getData());
+	}
+
+	private void doModelStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		vehicle.setModel(event.asCharacters().getData());		
 	}
 
 	private void doCurrentTermAmtEndProcessing() {

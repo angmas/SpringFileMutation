@@ -127,4 +127,17 @@ class XmlToPolicyMappingServiceTest {
 				() -> assertEquals( "YAMAHA", policies.get(0).getVehicles().get(4).getMake())
 		);
 	}
+	
+	@Test
+	void addVehicleModel() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Vehicle> vehicles = policies.get(0).getVehicles();
+		assertAll("vehicle models",
+				() -> assertEquals( "AVALON XL/XLS/TR/LTD", policies.get(0).getVehicles().get(0).getModel()),
+				() -> assertEquals( "FABRICATION", policies.get(0).getVehicles().get(1).getModel()),
+				() -> assertEquals( "TACOMA DOUBLECAB", policies.get(0).getVehicles().get(2).getModel()),
+				() -> assertEquals( "VEGAS", policies.get(0).getVehicles().get(3).getModel()),
+				() -> assertEquals( "XV365DB", policies.get(0).getVehicles().get(4).getModel())
+		);
+	}
 }

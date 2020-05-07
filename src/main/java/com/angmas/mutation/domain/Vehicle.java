@@ -4,6 +4,15 @@ public class Vehicle {
 	
 	private String id;
 	private String make;
+	private String model;
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
 
 	public void setMake(String make) {
 		this.make = make;
