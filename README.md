@@ -19,9 +19,9 @@ The response should contain an array of the following information extracted from
 {
 "policyNumber": String,
 "customerName": String,
-"PolicyType": String,
+"policyType": String,
 "totalPremium": Float,
-"vehichles": [{
+"vehicles": [{
 "make" : String,
 "model": String,
 "modelYear": String
@@ -51,7 +51,10 @@ The response should contain an array of the following information extracted from
 ```
 
 ## Run service  
-`mvn spring-boot:run`  
+`mvn spring-boot:run`
+
+## References
+* [Stax tutorial](https://www.baeldung.com/java-stax)  
 
 ## Install Certs
 1. Get certificates
