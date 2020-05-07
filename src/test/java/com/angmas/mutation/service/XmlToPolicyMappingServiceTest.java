@@ -22,6 +22,7 @@ import com.angmas.mutation.domain.Policy;
 class XmlToPolicyMappingServiceTest {
 	
 	private static String xmlString;
+	private XmlToPolicyMappingService xml2pol;
 
 	@BeforeAll
 	static void setup() throws IOException {
@@ -34,7 +35,9 @@ class XmlToPolicyMappingServiceTest {
 	
 	@BeforeEach
 	void init() throws Exception {
+		xml2pol = new XmlToPolicyMappingService();
 	}
+	
 
 	@AfterEach
 	void tearDown() throws Exception {
@@ -43,9 +46,18 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void returnsListOfPolicies() throws XMLStreamException {
-		XmlToPolicyMappingService xml2pol = new XmlToPolicyMappingService();
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
 		assertEquals(3, policies.size());
+	}
+	
+	@Test
+	void mapsPolicyNumbers() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		assertAll("policy numbers",
+			() -> assertEquals( "4843607801", policies.get(0).getPolicyNumber()),
+			() -> assertEquals("XT678", policies.get(1).getPolicyNumber()),
+			() -> assertEquals("YY567", policies.get(2).getPolicyNumber())
+		);
 	}
 	
 	

@@ -62,9 +62,11 @@ public class XmlToPolicyMappingService {
 			case "PersAutoPolicyQuoteInqRq":
 				event = xmlEventReader.nextEvent();
 				policy = new Policy();
-	//			policy.setPolicyNumber(event.asCharacters().getData());
 				break;
-				
+			case "PolicyNumber":
+				event = xmlEventReader.nextEvent();
+				policy.setPolicyNumber(event.asCharacters().getData());
+				break;
 			}
 	
 		}
