@@ -92,6 +92,9 @@ public class XmlToPolicyMappingService {
 			case "PersVeh":
 				doPersVehStartProcessing(event, startElement);
 				break;
+			case "Manufacturer":
+				doManufacturerStartProcessing(event);
+				break;
 			}
 	
 		}
@@ -137,6 +140,17 @@ public class XmlToPolicyMappingService {
 		policy.getVehicles().add(vehicle);
 	}
 
+	private void doPersPolicyStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		inPersPolicyNode = true;
+	}
+
+	private void doPersPolicyEndProcessing() {
+		policy.setPolicyType(lobCdHold);
+		lobCdHold = "";
+		inPersPolicyNode = false;
+	}
+
 	private void doAmtStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		amtHold = event.asCharacters().getData();
@@ -163,9 +177,9 @@ public class XmlToPolicyMappingService {
 		policy.setPolicyNumber(event.asCharacters().getData());
 	}
 
-	private void doPersPolicyStartProcessing(XMLEvent event) throws XMLStreamException {
+	private void doManufacturerStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
-		inPersPolicyNode = true;
+		vehicle.setMake(event.asCharacters().getData());
 	}
 
 	private void doCurrentTermAmtEndProcessing() {
@@ -183,13 +197,6 @@ public class XmlToPolicyMappingService {
 		
 		isInsuredOrPrincipalRole = false;
 	}
-
-	private void doPersPolicyEndProcessing() {
-		policy.setPolicyType(lobCdHold);
-		lobCdHold = "";
-		inPersPolicyNode = false;
-	}
-	
 
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory.newInstance();
