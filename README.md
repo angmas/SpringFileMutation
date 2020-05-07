@@ -31,24 +31,7 @@ The response should contain an array of the following information extracted from
 "age": Integer
 }...]
 ```
-## Response Format 
-The response should contain an array of the following information extracted from the file and a count of the number of entries: 
-```json
-{
-"policyNumber": String,
-"customerName": String,
-"PolicyType": String,
-"totalPremium": Float,
-"vehichles": [{
-"make" : String,
-"model": String,
-"liscenceNumber": String
-}...],
-"drivers" : [{
-"driverName": String,
-"age": Integer
-}...]
-```
+
 
 ## Run service  
 `mvn spring-boot:run`
