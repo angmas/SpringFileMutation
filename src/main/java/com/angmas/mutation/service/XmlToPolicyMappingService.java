@@ -26,6 +26,8 @@ public class XmlToPolicyMappingService {
 	private String customerNameHold;
 	private boolean isInsuredOrPrincipalRole;
 	private String lobCdHold;
+	private boolean inPersPolicyNode;
+	private String amtHold;
 	
 	public XmlToPolicyMappingService() {
 		super();
@@ -63,32 +65,65 @@ public class XmlToPolicyMappingService {
 			
 			switch (startElement.getName().getLocalPart()) {
 			case "PersAutoPolicyQuoteInqRq":
-				event = xmlEventReader.nextEvent();
-				policy = new Policy();
+				doPersAutoPolicyQuoteInsRqStartProcessing(event);
+				break;
+			case "PersPolicy":
+				doPersPolicyStartProcessing(event);
 				break;
 			case "PolicyNumber":
-				event = xmlEventReader.nextEvent();
-				policy.setPolicyNumber(event.asCharacters().getData());
+				doPolicyNumberStartProcessing(event);
 				break;
-			
 			case "CommercialName":
-				event = xmlEventReader.nextEvent();
-				customerNameHold = event.asCharacters().getData();
+				doCommercialNameStartProcessing(event);
 				break;
-				
 			case "InsuredOrPrincipalRoleCd":
-				event = xmlEventReader.nextEvent();
-				String insuredOrPrincipalRoleCd = event.asCharacters().getData();
-				isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
+				doInsuredOrPrincipalRoleCdStartProcessing(event);
 				break;
-				
 			case "LOBCd":
-				event = xmlEventReader.nextEvent();
-				lobCdHold = event.asCharacters().getData();
+				doLOBCdStartProcessing(event);
+				break;
+			case "Amt":
+				doAmtStartProcessing(event);
 				break;
 			}
 	
 		}
+
+	private void doAmtStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		amtHold = event.asCharacters().getData();
+	}
+
+	private void doLOBCdStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		lobCdHold = event.asCharacters().getData();
+	}
+
+	private void doInsuredOrPrincipalRoleCdStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		String insuredOrPrincipalRoleCd = event.asCharacters().getData();
+		isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
+	}
+
+	private void doCommercialNameStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		customerNameHold = event.asCharacters().getData();
+	}
+
+	private void doPolicyNumberStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		policy.setPolicyNumber(event.asCharacters().getData());
+	}
+
+	private void doPersPolicyStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		inPersPolicyNode = true;
+	}
+
+	private void doPersAutoPolicyQuoteInsRqStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		policy = new Policy();
+	}
 
 	private void doEndElementProcessing(XMLEvent event, Policy policy) {
 		EndElement endElement = event.asEndElement();
@@ -97,19 +132,37 @@ public class XmlToPolicyMappingService {
 			policies.add(policy);
 			break;
 		case "InsuredOrPrincipal":
-			if (isInsuredOrPrincipalRole) {
-				policy.setCustomerName(customerNameHold);
-			} else {
-				customerNameHold = "";
-			}
-			
-			isInsuredOrPrincipalRole = false;
-				
+			doInsuredOrPrincipalEndProcessing(policy);
 			break;
 		case "PersPolicy":
-			policy.setPolicyType(lobCdHold);
-			lobCdHold = "";
+			doPersPolicyEndProcessing(policy);
+			break;
+		case "CurrentTermAmt":
+			doCurrentTermAmtEndProcessing();
+			break;
 		}
+	}
+
+	private void doCurrentTermAmtEndProcessing() {
+		if (inPersPolicyNode) {
+			policy.setTotalPremium(amtHold);
+		}
+	}
+
+	private void doInsuredOrPrincipalEndProcessing(Policy policy) {
+		if (isInsuredOrPrincipalRole) {
+			policy.setCustomerName(customerNameHold);
+		} else {
+			customerNameHold = "";
+		}
+		
+		isInsuredOrPrincipalRole = false;
+	}
+
+	private void doPersPolicyEndProcessing(Policy policy) {
+		policy.setPolicyType(lobCdHold);
+		lobCdHold = "";
+		inPersPolicyNode = false;
 	}
 	
 

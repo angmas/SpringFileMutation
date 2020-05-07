@@ -3,6 +3,7 @@ package com.angmas.mutation.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,6 +78,16 @@ class XmlToPolicyMappingServiceTest {
 				() -> assertEquals( "AUTOPA", policies.get(0).getPolicyType()),
 				() -> assertEquals("AUTOPB", policies.get(1).getPolicyType()),
 				() -> assertEquals("AUTOPC", policies.get(2).getPolicyType())
+			);
+	}
+	
+	@Test
+	void mapsTotalPremium() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		assertAll("policy numbers",
+				() -> assertEquals( new BigDecimal("2135.19"), policies.get(0).getTotalPremium()),
+				() -> assertEquals(new BigDecimal("300.00"), policies.get(1).getTotalPremium()),
+				() -> assertEquals(new BigDecimal("3000.25"), policies.get(2).getTotalPremium())
 			);
 	}
 }
