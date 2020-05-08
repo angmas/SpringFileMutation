@@ -8,13 +8,10 @@ import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
 
 import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
@@ -51,9 +48,9 @@ public class XmlToPolicyMappingService {
 	
 
 	private void doStartElementProcessing() throws XMLStreamException {
-		StartElement startElement = helper.event.asStartElement();
+		helper.startElement = helper.event.asStartElement();
 		
-		switch (startElement.getName().getLocalPart()) {
+		switch (helper.startElement.getName().getLocalPart()) {
 		case "PersAutoPolicyQuoteInqRq":
 			doPersAutoPolicyQuoteInsRqStartProcessing(helper);
 			break;
@@ -76,10 +73,10 @@ public class XmlToPolicyMappingService {
 			doAmtStartProcessing(helper);
 			break;
 		case "PersVeh":
-			doPersVehStartProcessing(helper, startElement);
+			doPersVehStartProcessing(helper);
 			break;
 		case "PersDriver":
-			doPersDriverStartProcessing(helper, startElement);
+			doPersDriverStartProcessing(helper);
 			break;
 		case "Manufacturer":
 			doManufacturerStartProcessing(helper);
@@ -130,10 +127,10 @@ public class XmlToPolicyMappingService {
 		helper.policies.add(helper.policy);
 	}
 
-	private void doPersVehStartProcessing(AcordEventProcessorHelper helper, StartElement startElement) throws XMLStreamException {
+	private void doPersVehStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
 		helper.event = helper.xmlEventReader.nextEvent();
 		helper.vehicle = new Vehicle();
-		Attribute id = startElement.getAttributeByName(new QName("id"));
+		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
 		helper.vehicle.setId(id.getValue());
 	}
 	
@@ -141,10 +138,10 @@ public class XmlToPolicyMappingService {
 		helper.policy.getVehicles().add(helper.vehicle);
 	}
 
-	private void doPersDriverStartProcessing(AcordEventProcessorHelper helper, StartElement startElement) throws XMLStreamException {
+	private void doPersDriverStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
 		helper.event = helper.xmlEventReader.nextEvent();
 		helper.driver = new Driver();
-		Attribute id = startElement.getAttributeByName(new QName("id"));
+		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
 		helper.driver.setId(id.getValue());		
 	}
 
