@@ -4,10 +4,13 @@ package com.angmas.mutation.domain;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Driver {
 	
 	private String id;
 	private String driverName;
+	@JsonIgnore
 	private LocalDate birthDate;
 
 	public LocalDate getBirthDate() {
