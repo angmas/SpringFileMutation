@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-class MutatationController {
+class MutationControllerTest {
 
 	private static String xmlString;
 	private static String jsonString;
