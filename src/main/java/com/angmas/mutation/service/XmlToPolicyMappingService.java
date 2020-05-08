@@ -48,9 +48,8 @@ public class XmlToPolicyMappingService {
 	
 
 	private void doStartElementProcessing() throws XMLStreamException {
-		helper.startElement = helper.event.asStartElement();
 		
-		switch (helper.startElement.getName().getLocalPart()) {
+		switch (helper.getElementName()) {
 		case "PersAutoPolicyQuoteInqRq":
 			doPersAutoPolicyQuoteInsRqStartProcessing(helper);
 			break;
@@ -119,7 +118,7 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersAutoPolicyQuoteInsRqStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
+		helper.setNextEvent();
 		helper.policy = new Policy();
 	}
 
@@ -128,7 +127,7 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersVehStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
+		helper.setNextEvent();
 		helper.vehicle = new Vehicle();
 		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
 		helper.vehicle.setId(id.getValue());
@@ -139,7 +138,7 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersDriverStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
+		helper.setNextEvent();
 		helper.driver = new Driver();
 		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
 		helper.driver.setId(id.getValue());		
@@ -152,7 +151,7 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersPolicyStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
+		helper.setNextEvent();
 		helper.inPersPolicyNode = true;
 	}
 
@@ -163,8 +162,8 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doInsuredOrPrincipalRoleCdStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		String insuredOrPrincipalRoleCd = helper.event.asCharacters().getData();
+		helper.setNextEvent();
+		String insuredOrPrincipalRoleCd = helper.getElementData();
 		helper.isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
 	}
 
@@ -179,23 +178,23 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doAmtStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.amtHold = helper.event.asCharacters().getData();
+		helper.setNextEvent();
+		helper.amtHold = helper.getElementData();
 	}
 
 	private void doLOBCdStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.lobCdHold = helper.event.asCharacters().getData();
+		helper.setNextEvent();
+		helper.lobCdHold = helper.getElementData();
 	}
 
 	private void doCommercialNameStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.customerNameHold = helper.event.asCharacters().getData();
+		helper.setNextEvent();
+		helper.customerNameHold = helper.getElementData();
 	}
 
 	private void doPolicyNumberStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.policy.setPolicyNumber(helper.event.asCharacters().getData());
+		helper.setNextEvent();
+		helper.policy.setPolicyNumber(helper.getElementData());
 	}
 
 	private void doCurrentTermAmtEndProcessing(AcordEventProcessorHelper helper) {
@@ -205,23 +204,23 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doManufacturerStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.vehicle.setMake(helper.event.asCharacters().getData());
+		helper.setNextEvent();
+		helper.vehicle.setMake(helper.getElementData());
 	}
 
 	private void doModelStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.vehicle.setModel(helper.event.asCharacters().getData());		
+		helper.setNextEvent();
+		helper.vehicle.setModel(helper.getElementData());		
 	}
 
 	private void doModelYearStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.vehicle.setModelYear(helper.event.asCharacters().getData());
+		helper.setNextEvent();
+		helper.vehicle.setModelYear(helper.getElementData());
 	}
 
 	private void doBirthDtStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.event = helper.xmlEventReader.nextEvent();
-		helper.driver.setBirthDate(helper.event.asCharacters().getData());		
+		helper.setNextEvent();
+		helper.driver.setBirthDate(helper.getElementData());		
 	}
 
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {

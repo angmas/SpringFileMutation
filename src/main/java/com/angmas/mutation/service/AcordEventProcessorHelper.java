@@ -38,5 +38,12 @@ public class AcordEventProcessorHelper {
 		event = xmlEventReader.nextEvent();
 	}
 	
+	public String getElementData() {
+		return event.asCharacters().getData();
+	}
 	
+	public String getElementName() {
+		startElement = event.asStartElement();
+		return startElement.getName().getLocalPart();
+	}
 }
