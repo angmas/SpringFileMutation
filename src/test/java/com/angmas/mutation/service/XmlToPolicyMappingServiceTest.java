@@ -5,14 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -203,9 +200,9 @@ class XmlToPolicyMappingServiceTest {
 		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver birth date",
-				() -> assertEquals( 70, drivers.get(0).getDriverAge()),
-				() -> assertEquals( 64, drivers.get(1).getDriverAge()),
-				() -> assertEquals( 61, drivers.get(2).getDriverAge())
+				() -> assertEquals( 70, drivers.get(0).getAge()),
+				() -> assertEquals( 64, drivers.get(1).getAge()),
+				() -> assertEquals( 61, drivers.get(2).getAge())
 		);
 	}
 }
