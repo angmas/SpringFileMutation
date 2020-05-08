@@ -23,16 +23,6 @@ import com.angmas.mutation.domain.Vehicle;
 public class XmlToPolicyMappingService {
 
 	private AcordEventProcessorHelper helper;
-//	private XMLEventReader xmlEventReader;
-//	private boolean isInsuredOrPrincipalRole;
-//	private boolean inPersPolicyNode;
-//	private String customerNameHold;
-//	private String lobCdHold;
-//	private String amtHold;
-//	private List<Policy> policies;
-//	private Policy policy;
-//	private Vehicle vehicle;
-//	private Driver driver;
 	
 	public XmlToPolicyMappingService() {
 		this.helper = new AcordEventProcessorHelper();
@@ -49,10 +39,10 @@ public class XmlToPolicyMappingService {
 			helper.event = helper.xmlEventReader.nextEvent();
 			switch (helper.event.getEventType()) {
 				case XMLStreamConstants.START_ELEMENT:
-					doStartElementProcessing(helper);
+					doStartElementProcessing();
 					break;
 				case XMLStreamConstants.END_ELEMENT:
-					doEndElementProcessing(helper);
+					doEndElementProcessing();
 					break;
 			}
 
@@ -60,7 +50,7 @@ public class XmlToPolicyMappingService {
 	}
 	
 
-	private void doStartElementProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
+	private void doStartElementProcessing() throws XMLStreamException {
 		StartElement startElement = helper.event.asStartElement();
 		
 		switch (startElement.getName().getLocalPart()) {
@@ -107,7 +97,7 @@ public class XmlToPolicyMappingService {
 	
 	}
 
-	private void doEndElementProcessing(AcordEventProcessorHelper helper) {
+	private void doEndElementProcessing() {
 		EndElement endElement = helper.event.asEndElement();
 		switch (endElement.getName().getLocalPart()) {
 		case "PersAutoPolicyQuoteInqRq":
