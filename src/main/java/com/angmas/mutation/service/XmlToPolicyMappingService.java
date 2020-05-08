@@ -1,6 +1,5 @@
 package com.angmas.mutation.service;
 
-import javax.xml.namespace.QName;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -10,19 +9,16 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.EndElement;
-
-import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
-import com.angmas.mutation.domain.Vehicle;
 
 public class XmlToPolicyMappingService {
 
 	private AcordEventProcessorHelper helper;
+	private AcordStartEventProcessorFactory acordStartfactory;
 	
 	public XmlToPolicyMappingService() {
 		this.helper = new AcordEventProcessorHelper();
+		acordStartfactory = new AcordStartEventProcessorFactory();
 	}
 
 	public List<Policy> mapPolicies(String xmlString) throws XMLStreamException {
@@ -48,10 +44,10 @@ public class XmlToPolicyMappingService {
 	
 
 	private void doStartElementProcessing() throws XMLStreamException {
-		AcordStartEventProcessorFactory factory = new AcordStartEventProcessorFactory();
+
 		helper.setStartElement();
 		
-		AcordElementStartEventProcessor elementProcessor = factory.getProcessor(helper.getStartElementName());
+		AcordElementStartEventProcessor elementProcessor = acordStartfactory.getProcessor(helper.getStartElementName());
 		
 		if (elementProcessor != null) {
 			elementProcessor.doStartProcessing(helper);
