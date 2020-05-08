@@ -21,7 +21,7 @@ public class Driver {
 		this.birthDate = new LocalDate(string);
 	}
 
-	public int getDriverAge() {
+	public int getAge() {
 		Years age = Years.yearsBetween(birthDate, LocalDate.now());
 		return age.getYears();
 	}
