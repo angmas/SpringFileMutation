@@ -162,4 +162,15 @@ class XmlToPolicyMappingServiceTest {
 				() -> assertEquals( "D1", drivers.get(2).getId())
 		);
 	}
+	
+	@Test
+	void mapDriverName() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Driver> drivers = policies.get(2).getDrivers();
+		assertAll("driver name",
+				() -> assertEquals( "Mickey Mouse", drivers.get(0).getDriverName()),
+				() -> assertEquals( null, drivers.get(1).getDriverName()),
+				() -> assertEquals( "Goofy", drivers.get(2).getDriverName())
+		);
+	}
 }

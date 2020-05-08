@@ -157,6 +157,8 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersDriverEndProcessing() {
+		driver.setDriverName(customerNameHold);
+		customerNameHold = null;
 		policy.getDrivers().add(driver);
 	}
 
@@ -171,6 +173,22 @@ public class XmlToPolicyMappingService {
 		inPersPolicyNode = false;
 	}
 
+	private void doInsuredOrPrincipalRoleCdStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		String insuredOrPrincipalRoleCd = event.asCharacters().getData();
+		isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
+	}
+
+	private void doInsuredOrPrincipalEndProcessing() {
+		if (isInsuredOrPrincipalRole) {
+			policy.setCustomerName(customerNameHold);
+		}
+		
+		customerNameHold = null;
+		
+		isInsuredOrPrincipalRole = false;
+	}
+
 	private void doAmtStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		amtHold = event.asCharacters().getData();
@@ -179,12 +197,6 @@ public class XmlToPolicyMappingService {
 	private void doLOBCdStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		lobCdHold = event.asCharacters().getData();
-	}
-
-	private void doInsuredOrPrincipalRoleCdStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
-		String insuredOrPrincipalRoleCd = event.asCharacters().getData();
-		isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
 	}
 
 	private void doCommercialNameStartProcessing(XMLEvent event) throws XMLStreamException {
@@ -211,16 +223,6 @@ public class XmlToPolicyMappingService {
 		if (inPersPolicyNode) {
 			policy.setTotalPremium(amtHold);
 		}
-	}
-
-	private void doInsuredOrPrincipalEndProcessing() {
-		if (isInsuredOrPrincipalRole) {
-			policy.setCustomerName(customerNameHold);
-		} else {
-			customerNameHold = "";
-		}
-		
-		isInsuredOrPrincipalRole = false;
 	}
 
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {
