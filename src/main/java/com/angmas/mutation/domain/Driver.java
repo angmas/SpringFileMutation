@@ -19,8 +19,7 @@ public class Driver {
 	}
 
 	public int getDriverAge() {
-		LocalDate currentDate = LocalDate.now();
-		Years age = Years.yearsBetween(birthDate, currentDate);
+		Years age = Years.yearsBetween(birthDate, LocalDate.now());
 		return age.getYears();
 	}
 	
