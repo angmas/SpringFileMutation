@@ -24,19 +24,18 @@ public class XmlToPolicyMappingService {
 
 	private AcordEventProcessorHelper helper;
 	private XMLEventReader xmlEventReader;
+	private boolean isInsuredOrPrincipalRole;
+	private boolean inPersPolicyNode;
+	private String customerNameHold;
+	private String lobCdHold;
+	private String amtHold;
 	private List<Policy> policies;
 	private Policy policy;
-	private String customerNameHold;
-	private boolean isInsuredOrPrincipalRole;
-	private String lobCdHold;
-	private boolean inPersPolicyNode;
-	private String amtHold;
 	private Vehicle vehicle;
 	private Driver driver;
 	
 	public XmlToPolicyMappingService() {
-		super();
-		this.policies = new ArrayList<>();
+		AcordEventProcessorHelper helper = new AcordEventProcessorHelper();
 	}
 
 	public List<Policy> mapPolicies(String xmlString) throws XMLStreamException {
