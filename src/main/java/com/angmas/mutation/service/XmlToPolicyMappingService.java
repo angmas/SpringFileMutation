@@ -54,59 +54,58 @@ public class XmlToPolicyMappingService {
 				case XMLStreamConstants.END_ELEMENT:
 					doEndElementProcessing(event);
 					break;
-//				default:
-//					this.xmlEventWriter.add(event);
-//					break;
 			}
 
 		}
 	}
 	
-	
 
 	private void doStartElementProcessing(XMLEvent event) throws XMLStreamException {
-			StartElement startElement = event.asStartElement();
-			
-			switch (startElement.getName().getLocalPart()) {
-			case "PersAutoPolicyQuoteInqRq":
-				doPersAutoPolicyQuoteInsRqStartProcessing(event);
-				break;
-			case "PersPolicy":
-				doPersPolicyStartProcessing(event);
-				break;
-			case "PolicyNumber":
-				doPolicyNumberStartProcessing(event);
-				break;
-			case "CommercialName":
-				doCommercialNameStartProcessing(event);
-				break;
-			case "InsuredOrPrincipalRoleCd":
-				doInsuredOrPrincipalRoleCdStartProcessing(event);
-				break;
-			case "LOBCd":
-				doLOBCdStartProcessing(event);
-				break;
-			case "Amt":
-				doAmtStartProcessing(event);
-				break;
-			case "PersVeh":
-				doPersVehStartProcessing(event, startElement);
-				break;
-			case "PersDriver":
-				doPersDriverStartProcessing(event, startElement);
-				break;
-			case "Manufacturer":
-				doManufacturerStartProcessing(event);
-				break;
-			case "Model":
-				doModelStartProcessing(event);
-				break;
-			case "BirthDt":
-				doBirthDtStartProcessing(event);
-				break;
-			}
-	
+		StartElement startElement = event.asStartElement();
+		
+		switch (startElement.getName().getLocalPart()) {
+		case "PersAutoPolicyQuoteInqRq":
+			doPersAutoPolicyQuoteInsRqStartProcessing(event);
+			break;
+		case "PersPolicy":
+			doPersPolicyStartProcessing(event);
+			break;
+		case "PolicyNumber":
+			doPolicyNumberStartProcessing(event);
+			break;
+		case "CommercialName":
+			doCommercialNameStartProcessing(event);
+			break;
+		case "InsuredOrPrincipalRoleCd":
+			doInsuredOrPrincipalRoleCdStartProcessing(event);
+			break;
+		case "LOBCd":
+			doLOBCdStartProcessing(event);
+			break;
+		case "Amt":
+			doAmtStartProcessing(event);
+			break;
+		case "PersVeh":
+			doPersVehStartProcessing(event, startElement);
+			break;
+		case "PersDriver":
+			doPersDriverStartProcessing(event, startElement);
+			break;
+		case "Manufacturer":
+			doManufacturerStartProcessing(event);
+			break;
+		case "Model":
+			doModelStartProcessing(event);
+			break;
+		case "ModelYear":
+			doModelYearStartProcessing(event);
+			break;
+		case "BirthDt":
+			doBirthDtStartProcessing(event);
+			break;
 		}
+	
+	}
 
 	private void doEndElementProcessing(XMLEvent event) {
 		EndElement endElement = event.asEndElement();
@@ -226,6 +225,11 @@ public class XmlToPolicyMappingService {
 	private void doModelStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		vehicle.setModel(event.asCharacters().getData());		
+	}
+
+	private void doModelYearStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		vehicle.setModelYear(event.asCharacters().getData());
 	}
 
 	private void doBirthDtStartProcessing(XMLEvent event) throws XMLStreamException {

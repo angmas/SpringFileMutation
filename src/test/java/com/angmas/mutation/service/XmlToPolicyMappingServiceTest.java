@@ -25,7 +25,7 @@ import com.angmas.mutation.domain.Vehicle;
 class XmlToPolicyMappingServiceTest {
 	
 	private static String xmlString;
-	private XmlToPolicyMappingService xml2pol;
+	private XmlToPolicyMappingService xml2policyObject;
 
 	@BeforeAll
 	static void setup() throws IOException {
@@ -38,7 +38,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@BeforeEach
 	void init() throws Exception {
-		xml2pol = new XmlToPolicyMappingService();
+		xml2policyObject = new XmlToPolicyMappingService();
 	}
 	
 
@@ -49,13 +49,13 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void returnsListOfPolicies() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertEquals(3, policies.size());
 	}
 	
 	@Test
 	void mapsPolicyNumbers() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertAll("policy numbers",
 			() -> assertEquals( "4843607801", policies.get(0).getPolicyNumber()),
 			() -> assertEquals("XT678", policies.get(1).getPolicyNumber()),
@@ -65,7 +65,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapsCustomerNames() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertAll("customer names",
 			() -> assertEquals( "Tyrion Spiegelman", policies.get(0).getCustomerName()),
 			() -> assertEquals("Fred Flinstone", policies.get(1).getCustomerName()),
@@ -75,7 +75,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapsPolicyType() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertAll("policy types",
 				() -> assertEquals( "AUTOPA", policies.get(0).getPolicyType()),
 				() -> assertEquals("AUTOPB", policies.get(1).getPolicyType()),
@@ -85,7 +85,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapsTotalPremium() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertAll("total premiums",
 				() -> assertEquals( new BigDecimal("2135.19"), policies.get(0).getTotalPremium()),
 				() -> assertEquals(new BigDecimal("300.00"), policies.get(1).getTotalPremium()),
@@ -95,7 +95,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void createsVehicleObjects() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertAll("vehicle counts",
 				() -> assertEquals( 5, policies.get(0).getVehicles().size()),
 				() -> assertEquals( 1, policies.get(1).getVehicles().size()),
@@ -105,46 +105,59 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapVehicleIds() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle ids",
-				() -> assertEquals( "V1", policies.get(0).getVehicles().get(0).getId()),
-				() -> assertEquals( "V2", policies.get(0).getVehicles().get(1).getId()),
-				() -> assertEquals( "V3", policies.get(0).getVehicles().get(2).getId()),
-				() -> assertEquals( "V4", policies.get(0).getVehicles().get(3).getId()),
-				() -> assertEquals( "V5", policies.get(0).getVehicles().get(4).getId())
+				() -> assertEquals( "V1", vehicles.get(0).getId()),
+				() -> assertEquals( "V2", vehicles.get(1).getId()),
+				() -> assertEquals( "V3", vehicles.get(2).getId()),
+				() -> assertEquals( "V4", vehicles.get(3).getId()),
+				() -> assertEquals( "V5", vehicles.get(4).getId())
 		);
 	}
 	
 	@Test
 	void mapVehicleMake() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle make",
-				() -> assertEquals( "TOYT", policies.get(0).getVehicles().get(0).getMake()),
-				() -> assertEquals( "PASONS", policies.get(0).getVehicles().get(1).getMake()),
-				() -> assertEquals( "TOYT", policies.get(0).getVehicles().get(2).getMake()),
-				() -> assertEquals( "VICTORY", policies.get(0).getVehicles().get(3).getMake()),
-				() -> assertEquals( "YAMAHA", policies.get(0).getVehicles().get(4).getMake())
+				() -> assertEquals( "TOYT", vehicles.get(0).getMake()),
+				() -> assertEquals( "PASONS", vehicles.get(1).getMake()),
+				() -> assertEquals( "TOYT", vehicles.get(2).getMake()),
+				() -> assertEquals( "VICTORY", vehicles.get(3).getMake()),
+				() -> assertEquals( "YAMAHA", vehicles.get(4).getMake())
 		);
 	}
 	
 	@Test
 	void mapVehicleModel() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle models",
-				() -> assertEquals( "AVALON XL/XLS/TR/LTD", policies.get(0).getVehicles().get(0).getModel()),
-				() -> assertEquals( "FABRICATION", policies.get(0).getVehicles().get(1).getModel()),
-				() -> assertEquals( "TACOMA DOUBLECAB", policies.get(0).getVehicles().get(2).getModel()),
-				() -> assertEquals( "VEGAS", policies.get(0).getVehicles().get(3).getModel()),
-				() -> assertEquals( "XV365DB", policies.get(0).getVehicles().get(4).getModel())
+				() -> assertEquals( "AVALON XL/XLS/TR/LTD", vehicles.get(0).getModel()),
+				() -> assertEquals( "FABRICATION", vehicles.get(1).getModel()),
+				() -> assertEquals( "TACOMA DOUBLECAB", vehicles.get(2).getModel()),
+				() -> assertEquals( "VEGAS", vehicles.get(3).getModel()),
+				() -> assertEquals( "XV365DB", vehicles.get(4).getModel())
+		);
+	}
+	
+	@Test
+	void mapVehicleModelYear() throws XMLStreamException {
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Vehicle> vehicles = policies.get(0).getVehicles();
+		assertAll("vehicle models",
+				() -> assertEquals( "2006", vehicles.get(0).getModelYear()),
+				() -> assertEquals( "2009", vehicles.get(1).getModelYear()),
+				() -> assertEquals( "2010", vehicles.get(2).getModelYear()),
+				() -> assertEquals( "2010", vehicles.get(3).getModelYear()),
+				() -> assertEquals( "2013", vehicles.get(4).getModelYear())
 		);
 	}
 	
 	@Test
 	void createsDriverObjects() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		assertAll("driver counts",
 				() -> assertEquals( 1, policies.get(0).getDrivers().size()),
 				() -> assertEquals( 2, policies.get(1).getDrivers().size()),
@@ -154,7 +167,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapDriverId() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver id",
 				() -> assertEquals( "D1", drivers.get(0).getId()),
@@ -165,7 +178,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapDriverName() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver name",
 				() -> assertEquals( "Mickey Mouse", drivers.get(0).getDriverName()),
@@ -176,7 +189,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void mapDriverBirthDate() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver birth date",
 				() -> assertEquals( "1950-03-01", drivers.get(0).getBirthDate().toString("yyyy-MM-dd")),
@@ -187,7 +200,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@Test
 	void getDriversAge() throws XMLStreamException {
-		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver birth date",
 				() -> assertEquals( 70, drivers.get(0).getDriverAge()),
