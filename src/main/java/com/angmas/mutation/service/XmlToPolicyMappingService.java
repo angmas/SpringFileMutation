@@ -22,6 +22,7 @@ import com.angmas.mutation.domain.Vehicle;
 
 public class XmlToPolicyMappingService {
 
+	private AcordEventProcessorHelper helper;
 	private XMLEventReader xmlEventReader;
 	private List<Policy> policies;
 	private Policy policy;
@@ -46,13 +47,14 @@ public class XmlToPolicyMappingService {
 
 	private void processXmlElements() throws XMLStreamException {
 		while (xmlEventReader.hasNext()) {
-			XMLEvent event = xmlEventReader.nextEvent();
-			switch (event.getEventType()) {
+			AcordEventProcessorHelper helper = new AcordEventProcessorHelper();
+			helper.event = xmlEventReader.nextEvent();
+			switch (helper.event.getEventType()) {
 				case XMLStreamConstants.START_ELEMENT:
-					doStartElementProcessing(event);
+					doStartElementProcessing(helper.event);
 					break;
 				case XMLStreamConstants.END_ELEMENT:
-					doEndElementProcessing(event);
+					doEndElementProcessing(helper.event);
 					break;
 			}
 
