@@ -48,8 +48,15 @@ public class XmlToPolicyMappingService {
 	
 
 	private void doStartElementProcessing() throws XMLStreamException {
+//		AcordStartEventProcessorFactory factory = new AcordStartEventProcessorFactory();
+//		
+//		AcordElementStartEventProcessor elementProcessor = factory.getProcessor(helper.getElementName());
+//		
+//		if (elementProcessor != null) {
+//			elementProcessor.doStartProcessing(helper);
+//		}
 		
-		switch (helper.getElementName()) {
+		switch (helper.getStartElementName()) {
 		case "PersAutoPolicyQuoteInqRq":
 			doPersAutoPolicyQuoteInsRqStartProcessing(helper);
 			break;
@@ -94,8 +101,8 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doEndElementProcessing() {
-		EndElement endElement = helper.event.asEndElement();
-		switch (endElement.getName().getLocalPart()) {
+//		EndElement endElement = helper.event.asEndElement();
+		switch (helper.getEndElementName()) {
 		case "PersAutoPolicyQuoteInqRq":
 			doPersAutoPolicyQuoteInqRqEndProcesing(helper);
 			break;

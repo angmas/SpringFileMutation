@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
@@ -42,8 +43,13 @@ public class AcordEventProcessorHelper {
 		return event.asCharacters().getData();
 	}
 	
-	public String getElementName() {
+	public String getStartElementName() {
 		startElement = event.asStartElement();
 		return startElement.getName().getLocalPart();
+	}
+	
+	public String getEndElementName() {
+		EndElement endElement = event.asEndElement();
+		return endElement.getName().getLocalPart();
 	}
 }
