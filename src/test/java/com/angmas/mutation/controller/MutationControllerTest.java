@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.angmas.mutation.domain.Policy;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,6 +44,17 @@ class MutationControllerTest {
 		List<Policy> policies = mc.getPolicy(xmlString);
 		ObjectWriter ow = new ObjectMapper().writer();
 		assertEquals(jsonString, ow.writeValueAsString(policies));
+	}
+	@Test
+	void exceptionIsThrown() {
+		MutationController mc = new MutationController();
+		Exception exception = assertThrows(ResponseStatusException.class, () -> {
+			mc.getPolicy("<ACORD");
+		});
+		
+		String expectedMessage = "Cannot process this XML";
+		String actualMessage = exception.getMessage();
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 
 }
