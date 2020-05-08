@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
   @Override
   public void configureContentNegotiation(final ContentNegotiationConfigurer configurer) {
-    configurer.defaultContentType(MediaType.APPLICATION_JSON);
+    configurer.defaultContentType(MediaType.APPLICATION_JSON).
 	  //set path extension to false
 //		configurer.favorPathExtension(false).
 	    //request parameter ("format" by default) should be used to determine the requested media type
@@ -19,9 +19,9 @@ public class WebConfig implements WebMvcConfigurer {
 	   //the favor parameter is set to "mediaType" instead of default "format"
 //	    parameterName("mediaType").
 	    //ignore the accept headers
-//	    ignoreAcceptHeader(true).
+	    ignoreAcceptHeader(true).
 	    //don't use Java Activation Framework since we are manually specifying the mediatypes required below
-//	    useRegisteredExtensionsOnly(true).
+	    useRegisteredExtensionsOnly(true);
 //	    defaultContentType(MediaType.APPLICATION_JSON).
 //	    mediaType("xml", MediaType.APPLICATION_XML).
 //	    mediaType("json", MediaType.APPLICATION_JSON);
