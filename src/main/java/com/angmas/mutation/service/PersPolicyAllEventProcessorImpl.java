@@ -2,7 +2,7 @@ package com.angmas.mutation.service;
 
 import javax.xml.stream.XMLStreamException;
 
-public class PersPolicyEventProcessorImpl implements AcordElementEndEventProcessor, AcordElementStartEventProcessor {
+public class PersPolicyAllEventProcessorImpl implements AcordElementEndEventProcessor, AcordElementStartEventProcessor {
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {

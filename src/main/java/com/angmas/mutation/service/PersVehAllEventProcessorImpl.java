@@ -4,23 +4,21 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
 
-import com.angmas.mutation.domain.Driver;
+import com.angmas.mutation.domain.Vehicle;
 
-public class PersDriverEventProcessorImpl implements AcordElementEndEventProcessor, AcordElementStartEventProcessor {
+public class PersVehAllEventProcessorImpl implements AcordElementStartEventProcessor, AcordElementEndEventProcessor {
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
 		helper.setNextEvent();
-		helper.driver = new Driver();
+		helper.vehicle = new Vehicle();
 		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
-		helper.driver.setId(id.getValue());		
+		helper.vehicle.setId(id.getValue());
 	}
 
 	@Override
 	public void doEndProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.driver.setDriverName(helper.customerNameHold);
-		helper.customerNameHold = null;
-		helper.policy.getDrivers().add(helper.driver);
+		helper.policy.getVehicles().add(helper.vehicle);
 	}
 
 }

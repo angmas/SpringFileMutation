@@ -2,12 +2,12 @@ package com.angmas.mutation.service;
 
 import javax.xml.stream.XMLStreamException;
 
-public class LobCdStartEventProcessingImpl implements AcordElementStartEventProcessor {
+public class BirthDtStartEventProcessorImpl implements AcordElementStartEventProcessor {
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
 		helper.setNextEvent();
-		helper.lobCdHold = helper.getElementData();
+		helper.driver.setBirthDate(helper.getElementData());
 	}
 
 }

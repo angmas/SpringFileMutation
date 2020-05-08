@@ -5,43 +5,43 @@ public class AcordStartEventProcessorFactory {
 	public AcordElementStartEventProcessor getProcessor(String acordNodeName) {
 		switch (acordNodeName) {
 		case "PersAutoPolicyQuoteInqRq":
-			return new PersAutoPolicyQuoteInqRqEventProcessorImpl();
+			return new PersAutoPolicyQuoteInqRqAllEventProcessorImpl();
 			
 		case "PersPolicy":
-			return new PersPolicyEventProcessorImpl();
+			return new PersPolicyAllEventProcessorImpl();
 			
 		case "PolicyNumber":
-			return new PolicyNumberStartEventProcessingImpl(); 
+			return new PolicyNumberStartEventProcessorImpl(); 
 			
 		case "CommercialName":
-			return new CommercialNameStartEventProcessingImpl();
+			return new CommercialNameStartEventProcessorImpl();
 			
 		case "InsuredOrPrincipalRoleCd":
-			return new InsuredOrPrincipalRoleCdStartEventProcessingImpl();
+			return new InsuredOrPrincipalRoleCdStartEventProcessorImpl();
 			
 		case "LOBCd":
-			return new LobCdStartEventProcessingImpl();
+			return new LobCdStartEventProcessorImpl();
 			
 		case "Amt":
-			return new AmtStartEventProcessImpl();
+			return new AmtStartEventProcessorImpl();
 			
 		case "PersVeh":
-			return new PersVehEventProcessorImpl();
+			return new PersVehAllEventProcessorImpl();
 			
 		case "PersDriver":
-			return new PersDriverEventProcessorImpl();
+			return new PersDriverAllEventProcessorImpl();
 			
 		case "Manufacturer":
-			return new ManufacturerStartEventProcessingImpl();
+			return new ManufacturerStartEventProcessorImpl();
 			
 		case "Model":
-			return new ModelStartEventProcessingImpl();
+			return new ModelStartEventProcessorImpl();
 			
 		case "ModelYear":
-			return new ModelYearsStartEventProcessingImpl();
+			return new ModelYearsStartEventProcessorImpl();
 			
 		case "BirthDt":
-			return new BirthDtStartEventProcessingImpl();
+			return new BirthDtStartEventProcessorImpl();
 		default:
 			return null;
 		}

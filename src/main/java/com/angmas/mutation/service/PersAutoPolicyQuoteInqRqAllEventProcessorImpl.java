@@ -4,7 +4,7 @@ import javax.xml.stream.XMLStreamException;
 
 import com.angmas.mutation.domain.Policy;
 
-public class PersAutoPolicyQuoteInqRqEventProcessorImpl implements AcordElementStartEventProcessor, AcordElementEndEventProcessor {
+public class PersAutoPolicyQuoteInqRqAllEventProcessorImpl implements AcordElementStartEventProcessor, AcordElementEndEventProcessor {
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
