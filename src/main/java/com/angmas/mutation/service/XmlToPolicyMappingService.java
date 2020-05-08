@@ -101,6 +101,9 @@ public class XmlToPolicyMappingService {
 			case "Model":
 				doModelStartProcessing(event);
 				break;
+			case "BirthDt":
+				doBirthDtStartProcessing(event);
+				break;
 			}
 	
 		}
@@ -209,6 +212,12 @@ public class XmlToPolicyMappingService {
 		policy.setPolicyNumber(event.asCharacters().getData());
 	}
 
+	private void doCurrentTermAmtEndProcessing() {
+		if (inPersPolicyNode) {
+			policy.setTotalPremium(amtHold);
+		}
+	}
+
 	private void doManufacturerStartProcessing(XMLEvent event) throws XMLStreamException {
 		event = xmlEventReader.nextEvent();
 		vehicle.setMake(event.asCharacters().getData());
@@ -219,10 +228,9 @@ public class XmlToPolicyMappingService {
 		vehicle.setModel(event.asCharacters().getData());		
 	}
 
-	private void doCurrentTermAmtEndProcessing() {
-		if (inPersPolicyNode) {
-			policy.setTotalPremium(amtHold);
-		}
+	private void doBirthDtStartProcessing(XMLEvent event) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		driver.setBirthDate(event.asCharacters().getData());		
 	}
 
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {
