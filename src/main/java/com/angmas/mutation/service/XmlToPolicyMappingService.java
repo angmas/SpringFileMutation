@@ -16,8 +16,7 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-
-
+import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
 import com.angmas.mutation.domain.Vehicle;
 
@@ -32,6 +31,7 @@ public class XmlToPolicyMappingService {
 	private boolean inPersPolicyNode;
 	private String amtHold;
 	private Vehicle vehicle;
+	private Driver driver;
 	
 	public XmlToPolicyMappingService() {
 		super();
@@ -92,6 +92,9 @@ public class XmlToPolicyMappingService {
 			case "PersVeh":
 				doPersVehStartProcessing(event, startElement);
 				break;
+			case "PersDriver":
+				doPersDriverStartProcessing(event, startElement);
+				break;
 			case "Manufacturer":
 				doManufacturerStartProcessing(event);
 				break;
@@ -120,6 +123,9 @@ public class XmlToPolicyMappingService {
 		case "PersVeh":
 			doPersVehEndProcessing();
 			break;
+		case "PersDriver":
+			doPersDriverEndProcessing();
+			break;
 		}
 	}
 
@@ -141,6 +147,17 @@ public class XmlToPolicyMappingService {
 	
 	private void doPersVehEndProcessing() {
 		policy.getVehicles().add(vehicle);
+	}
+
+	private void doPersDriverStartProcessing(XMLEvent event, StartElement startElement) throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
+		driver = new Driver();
+		Attribute id = startElement.getAttributeByName(new QName("id"));
+		driver.setId(id.getValue());		
+	}
+
+	private void doPersDriverEndProcessing() {
+		policy.getDrivers().add(driver);
 	}
 
 	private void doPersPolicyStartProcessing(XMLEvent event) throws XMLStreamException {

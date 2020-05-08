@@ -11,11 +11,21 @@ public class Policy {
 	private String policyType;
 	private BigDecimal totalPremium;
 	private List<Vehicle> vehicles;
+	private List<Driver> drivers;
 
 	
+	public List<Driver> getDrivers() {
+		return drivers;
+	}
+
+	public void setDrivers(List<Driver> drivers) {
+		this.drivers = drivers;
+	}
+
 	public Policy() {
 		super();
 		this.vehicles = new ArrayList<Vehicle>();
+		this.drivers = new ArrayList<Driver>();
 	}
 
 	public BigDecimal getTotalPremium() {

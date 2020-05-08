@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
 import com.angmas.mutation.domain.Vehicle;
 
@@ -103,7 +104,7 @@ class XmlToPolicyMappingServiceTest {
 	}
 	
 	@Test
-	void addVehicleIds() throws XMLStreamException {
+	void mapVehicleIds() throws XMLStreamException {
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle ids",
@@ -116,7 +117,7 @@ class XmlToPolicyMappingServiceTest {
 	}
 	
 	@Test
-	void addVehicleMake() throws XMLStreamException {
+	void mapVehicleMake() throws XMLStreamException {
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle make",
@@ -129,7 +130,7 @@ class XmlToPolicyMappingServiceTest {
 	}
 	
 	@Test
-	void addVehicleModel() throws XMLStreamException {
+	void mapVehicleModel() throws XMLStreamException {
 		List<Policy> policies = xml2pol.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle models",
@@ -138,6 +139,27 @@ class XmlToPolicyMappingServiceTest {
 				() -> assertEquals( "TACOMA DOUBLECAB", policies.get(0).getVehicles().get(2).getModel()),
 				() -> assertEquals( "VEGAS", policies.get(0).getVehicles().get(3).getModel()),
 				() -> assertEquals( "XV365DB", policies.get(0).getVehicles().get(4).getModel())
+		);
+	}
+	
+	@Test
+	void createsDriverObjects() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		assertAll("driver counts",
+				() -> assertEquals( 1, policies.get(0).getDrivers().size()),
+				() -> assertEquals( 2, policies.get(1).getDrivers().size()),
+				() -> assertEquals( 3, policies.get(2).getDrivers().size())
+		);
+	}
+	
+	@Test
+	void mapDriverId() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Driver> drivers = policies.get(2).getDrivers();
+		assertAll("driver id",
+				() -> assertEquals( "D1", drivers.get(0).getId()),
+				() -> assertEquals( "D2", drivers.get(1).getId()),
+				() -> assertEquals( "D1", drivers.get(2).getId())
 		);
 	}
 }
