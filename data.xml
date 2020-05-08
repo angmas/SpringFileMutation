@@ -20,7 +20,7 @@
 			</InsuredOrPrincipal>
 			<PersPolicy id="PolicyLevel">
 				<PolicyNumber>4843607801</PolicyNumber>
-				<LOBCd>AUTOP</LOBCd>
+				<LOBCd>AUTOPA</LOBCd>
 				<CurrentTermAmt>
 					<Amt>2135.19</Amt>
 				</CurrentTermAmt>
@@ -92,7 +92,7 @@
 			</InsuredOrPrincipal>
 			<PersPolicy id="PolicyLevel">
 				<PolicyNumber>XT678</PolicyNumber>
-				<LOBCd>AUTOP</LOBCd>
+				<LOBCd>AUTOPB</LOBCd>
 				<CurrentTermAmt>
 					<Amt>300</Amt>
 				</CurrentTermAmt>
@@ -149,7 +149,7 @@
 				<GeneralPartyInfo>
 					<NameInfo>
 						<CommlName>
-							<CommercialName>Fred Flinstone</CommercialName>
+							<CommercialName>Mickey Mouse</CommercialName>
 						</CommlName>
 					</NameInfo>
 				</GeneralPartyInfo>
@@ -159,7 +159,7 @@
 			</InsuredOrPrincipal>
 			<PersPolicy id="PolicyLevel">
 				<PolicyNumber>YY567</PolicyNumber>
-				<LOBCd>AUTOP</LOBCd>
+				<LOBCd>AUTOPC</LOBCd>
 				<CurrentTermAmt>
 					<Amt>3000.25</Amt>
 				</CurrentTermAmt>
