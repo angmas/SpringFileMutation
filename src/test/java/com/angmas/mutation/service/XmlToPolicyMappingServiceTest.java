@@ -14,12 +14,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
 import com.angmas.mutation.domain.Vehicle;
 
 class XmlToPolicyMappingServiceTest {
+	
+	Logger logger = LoggerFactory.getLogger(XmlToPolicyMappingServiceTest.class);
 	
 	private static String xmlString;
 	private XmlToPolicyMappingService xml2policyObject;
