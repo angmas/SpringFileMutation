@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import com.angmas.mutation.domain.Driver;
@@ -17,6 +19,7 @@ public class AcordEventProcessorHelper {
 	
 	public XMLEventReader xmlEventReader;
 	public XMLEvent event;
+	public StartElement startElement;
 	public List<Policy> policies;
 	public Policy policy;
 	public String customerNameHold;
@@ -29,6 +32,10 @@ public class AcordEventProcessorHelper {
 	
 	public AcordEventProcessorHelper() {
 		this.policies = new ArrayList<>();
+	}
+	
+	public void setNextEvent() throws XMLStreamException {
+		event = xmlEventReader.nextEvent();
 	}
 	
 	

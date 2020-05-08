@@ -33,7 +33,7 @@ public class XmlToPolicyMappingService {
 
 	private void processXmlElements() throws XMLStreamException {
 		while (helper.xmlEventReader.hasNext()) {
-			helper.event = helper.xmlEventReader.nextEvent();
+			helper.setNextEvent();
 			switch (helper.event.getEventType()) {
 				case XMLStreamConstants.START_ELEMENT:
 					doStartElementProcessing();
