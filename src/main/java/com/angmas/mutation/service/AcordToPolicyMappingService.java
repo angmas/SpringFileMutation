@@ -11,13 +11,13 @@ import java.util.List;
 import javax.xml.stream.XMLStreamConstants;
 import com.angmas.mutation.domain.Policy;
 
-public class XmlToPolicyMappingService {
+public class AcordToPolicyMappingService {
 
 	private AcordEventProcessorHelper helper;
 	private AcordStartEventProcessorFactory acordStartFactory;
 	private AcordEndEventProcessorFactory acordEndFactory;
 	
-	public XmlToPolicyMappingService() {
+	public AcordToPolicyMappingService() {
 		this.helper = new AcordEventProcessorHelper();
 		acordStartFactory = new AcordStartEventProcessorFactory();
 		acordEndFactory = new AcordEndEventProcessorFactory();

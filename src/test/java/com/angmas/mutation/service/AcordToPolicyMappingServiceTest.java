@@ -21,12 +21,12 @@ import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
 import com.angmas.mutation.domain.Vehicle;
 
-class XmlToPolicyMappingServiceTest {
+class AcordToPolicyMappingServiceTest {
 	
-	Logger logger = LoggerFactory.getLogger(XmlToPolicyMappingServiceTest.class);
+	Logger logger = LoggerFactory.getLogger(AcordToPolicyMappingServiceTest.class);
 	
 	private static String xmlString;
-	private XmlToPolicyMappingService xml2policyObject;
+	private AcordToPolicyMappingService xml2policyObject;
 
 	@BeforeAll
 	static void setup() throws IOException {
@@ -39,7 +39,7 @@ class XmlToPolicyMappingServiceTest {
 	
 	@BeforeEach
 	void init() throws Exception {
-		xml2policyObject = new XmlToPolicyMappingService();
+		xml2policyObject = new AcordToPolicyMappingService();
 	}
 	
 

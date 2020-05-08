@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.angmas.mutation.domain.Policy;
-import com.angmas.mutation.service.XmlToPolicyMappingService;
+import com.angmas.mutation.service.AcordToPolicyMappingService;
 
 @RestController
 public class MutationController {
@@ -22,7 +22,7 @@ public class MutationController {
 	
 	@PostMapping("/mutate")
 	public List<Policy> getPolicy(@RequestBody String requestBody) {
-		XmlToPolicyMappingService xml2policyObject = new XmlToPolicyMappingService();
+		AcordToPolicyMappingService xml2policyObject = new AcordToPolicyMappingService();
 		List<Policy> policies = new ArrayList<>();
 		try {
 			policies = xml2policyObject.mapPolicies(requestBody);
