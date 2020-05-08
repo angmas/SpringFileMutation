@@ -21,6 +21,7 @@ public class AcordEventProcessorHelper {
 	public XMLEventReader xmlEventReader;
 	public XMLEvent event;
 	public StartElement startElement;
+	public EndElement endElement;
 	public List<Policy> policies;
 	public Policy policy;
 	public String customerNameHold;
@@ -43,13 +44,20 @@ public class AcordEventProcessorHelper {
 		return event.asCharacters().getData();
 	}
 	
-	public String getStartElementName() {
+	public void setStartElement() {
 		startElement = event.asStartElement();
+	}
+	
+	public void setEndElement() {
+		endElement = event.asEndElement();
+	}
+	public String getStartElementName() {
+//		startElement = event.asStartElement();
 		return startElement.getName().getLocalPart();
 	}
 	
 	public String getEndElementName() {
-		EndElement endElement = event.asEndElement();
+//		endElement = event.asEndElement();
 		return endElement.getName().getLocalPart();
 	}
 }

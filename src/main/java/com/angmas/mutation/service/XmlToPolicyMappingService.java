@@ -48,60 +48,61 @@ public class XmlToPolicyMappingService {
 	
 
 	private void doStartElementProcessing() throws XMLStreamException {
-//		AcordStartEventProcessorFactory factory = new AcordStartEventProcessorFactory();
-//		
-//		AcordElementStartEventProcessor elementProcessor = factory.getProcessor(helper.getElementName());
-//		
-//		if (elementProcessor != null) {
-//			elementProcessor.doStartProcessing(helper);
-//		}
+		AcordStartEventProcessorFactory factory = new AcordStartEventProcessorFactory();
+		helper.setStartElement();
 		
-		switch (helper.getStartElementName()) {
-		case "PersAutoPolicyQuoteInqRq":
-			doPersAutoPolicyQuoteInsRqStartProcessing(helper);
-			break;
-		case "PersPolicy":
-			doPersPolicyStartProcessing(helper);
-			break;
-		case "PolicyNumber":
-			doPolicyNumberStartProcessing(helper);
-			break;
-		case "CommercialName":
-			doCommercialNameStartProcessing(helper);
-			break;
-		case "InsuredOrPrincipalRoleCd":
-			doInsuredOrPrincipalRoleCdStartProcessing(helper);
-			break;
-		case "LOBCd":
-			doLOBCdStartProcessing(helper);
-			break;
-		case "Amt":
-			doAmtStartProcessing(helper);
-			break;
-		case "PersVeh":
-			doPersVehStartProcessing(helper);
-			break;
-		case "PersDriver":
-			doPersDriverStartProcessing(helper);
-			break;
-		case "Manufacturer":
-			doManufacturerStartProcessing(helper);
-			break;
-		case "Model":
-			doModelStartProcessing(helper);
-			break;
-		case "ModelYear":
-			doModelYearStartProcessing(helper);
-			break;
-		case "BirthDt":
-			doBirthDtStartProcessing(helper);
-			break;
+		AcordElementStartEventProcessor elementProcessor = factory.getProcessor(helper.getStartElementName());
+		
+		if (elementProcessor != null) {
+			elementProcessor.doStartProcessing(helper);
 		}
-	
+		
+//		switch (helper.getStartElementName()) {
+//		case "PersAutoPolicyQuoteInqRq":
+//			doPersAutoPolicyQuoteInsRqStartProcessing(helper);
+//			break;
+//		case "PersPolicy":
+//			doPersPolicyStartProcessing(helper);
+//			break;
+//		case "PolicyNumber":
+//			doPolicyNumberStartProcessing(helper);
+//			break;
+//		case "CommercialName":
+//			doCommercialNameStartProcessing(helper);
+//			break;
+//		case "InsuredOrPrincipalRoleCd":
+//			doInsuredOrPrincipalRoleCdStartProcessing(helper);
+//			break;
+//		case "LOBCd":
+//			doLOBCdStartProcessing(helper);
+//			break;
+//		case "Amt":
+//			doAmtStartProcessing(helper);
+//			break;
+//		case "PersVeh":
+//			doPersVehStartProcessing(helper);
+//			break;
+//		case "PersDriver":
+//			doPersDriverStartProcessing(helper);
+//			break;
+//		case "Manufacturer":
+//			doManufacturerStartProcessing(helper);
+//			break;
+//		case "Model":
+//			doModelStartProcessing(helper);
+//			break;
+//		case "ModelYear":
+//			doModelYearStartProcessing(helper);
+//			break;
+//		case "BirthDt":
+//			doBirthDtStartProcessing(helper);
+//			break;
+//		}
+//	
 	}
 
 	private void doEndElementProcessing() {
-//		EndElement endElement = helper.event.asEndElement();
+		helper.setEndElement();
 		switch (helper.getEndElementName()) {
 		case "PersAutoPolicyQuoteInqRq":
 			doPersAutoPolicyQuoteInqRqEndProcesing(helper);
