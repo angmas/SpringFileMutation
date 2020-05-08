@@ -184,4 +184,15 @@ class XmlToPolicyMappingServiceTest {
 				() -> assertEquals( "1959-03-01", drivers.get(2).getBirthDate().toString("yyyy-MM-dd"))
 		);
 	}
+	
+	@Test
+	void getDriversAge() throws XMLStreamException {
+		List<Policy> policies = xml2pol.mapPolicies(xmlString);
+		List<Driver> drivers = policies.get(2).getDrivers();
+		assertAll("driver birth date",
+				() -> assertEquals( 70, drivers.get(0).getDriverAge()),
+				() -> assertEquals( 64, drivers.get(1).getDriverAge()),
+				() -> assertEquals( 61, drivers.get(2).getDriverAge())
+		);
+	}
 }

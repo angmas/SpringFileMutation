@@ -1,10 +1,8 @@
 package com.angmas.mutation.domain;
 
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.Years;
 
 public class Driver {
 	
@@ -17,10 +15,15 @@ public class Driver {
 	}
 
 	public void setBirthDate(String string) {
-//		LocalDate currentDate = LocalDate.now();
 		this.birthDate = new LocalDate(string);
 	}
 
+	public int getDriverAge() {
+		LocalDate currentDate = LocalDate.now();
+		Years age = Years.yearsBetween(birthDate, currentDate);
+		return age.getYears();
+	}
+	
 	public String getDriverName() {
 		return driverName;
 	}
