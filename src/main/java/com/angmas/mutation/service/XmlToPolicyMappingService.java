@@ -14,11 +14,13 @@ import com.angmas.mutation.domain.Policy;
 public class XmlToPolicyMappingService {
 
 	private AcordEventProcessorHelper helper;
-	private AcordStartEventProcessorFactory acordStartfactory;
+	private AcordStartEventProcessorFactory acordStartFactory;
+	private AcordEndEventProcessorFactory acordEndFactory;
 	
 	public XmlToPolicyMappingService() {
 		this.helper = new AcordEventProcessorHelper();
-		acordStartfactory = new AcordStartEventProcessorFactory();
+		acordStartFactory = new AcordStartEventProcessorFactory();
+		acordEndFactory = new AcordEndEventProcessorFactory();
 	}
 
 	public List<Policy> mapPolicies(String xmlString) throws XMLStreamException {
@@ -47,74 +49,23 @@ public class XmlToPolicyMappingService {
 
 		helper.setStartElement();
 		
-		AcordElementStartEventProcessor elementProcessor = acordStartfactory.getProcessor(helper.getStartElementName());
+		AcordElementStartEventProcessor elementStartProcessor = acordStartFactory.getProcessor(helper.getStartElementName());
 		
-		if (elementProcessor != null) {
-			elementProcessor.doStartProcessing(helper);
+		if (elementStartProcessor != null) {
+			elementStartProcessor.doStartProcessing(helper);
 		}
 		
 	}
 
-	private void doEndElementProcessing() {
+	private void doEndElementProcessing() throws XMLStreamException {
 		helper.setEndElement();
-		switch (helper.getEndElementName()) {
-		case "PersAutoPolicyQuoteInqRq":
-			doPersAutoPolicyQuoteInqRqEndProcesing(helper);
-			break;
-		case "InsuredOrPrincipal":
-			doInsuredOrPrincipalEndProcessing(helper);
-			break;
-		case "PersPolicy":
-			doPersPolicyEndProcessing(helper);
-			break;
-		case "CurrentTermAmt":
-			doCurrentTermAmtEndProcessing(helper);
-			break;
-		case "PersVeh":
-			doPersVehEndProcessing(helper);
-			break;
-		case "PersDriver":
-			doPersDriverEndProcessing(helper);
-			break;
-		}
-	}
-
-	private void doPersAutoPolicyQuoteInqRqEndProcesing(AcordEventProcessorHelper helper) {
-		helper.policies.add(helper.policy);
-	}
-
-	private void doPersVehEndProcessing(AcordEventProcessorHelper helper) {
-		helper.policy.getVehicles().add(helper.vehicle);
-	}
-
-	private void doPersDriverEndProcessing(AcordEventProcessorHelper helper) {
-		helper.driver.setDriverName(helper.customerNameHold);
-		helper.customerNameHold = null;
-		helper.policy.getDrivers().add(helper.driver);
-	}
-
-	private void doPersPolicyEndProcessing(AcordEventProcessorHelper helper) {
-		helper.policy.setPolicyType(helper.lobCdHold);
-		helper.lobCdHold = "";
-		helper.inPersPolicyNode = false;
-	}
-
-	private void doInsuredOrPrincipalEndProcessing(AcordEventProcessorHelper helper) {
-		if (helper.isInsuredOrPrincipalRole) {
-			helper.policy.setCustomerName(helper.customerNameHold);
-		}
+		AcordElementEndEventProcessor elementEndProcessor = acordEndFactory.getProcessor(helper.getEndElementName());
 		
-		helper.customerNameHold = null;
-		
-		helper.isInsuredOrPrincipalRole = false;
-	}
-
-	private void doCurrentTermAmtEndProcessing(AcordEventProcessorHelper helper) {
-		if (helper.inPersPolicyNode) {
-			helper.policy.setTotalPremium(helper.amtHold);
+		if (elementEndProcessor != null) {
+			elementEndProcessor.doEndProcessing(helper);
 		}
 	}
-
+	
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		InputStream stream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
