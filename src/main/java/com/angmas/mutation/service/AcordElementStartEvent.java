@@ -1,11 +1,14 @@
 package com.angmas.mutation.service;
 
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 import javax.xml.stream.events.Attribute;
 
 import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
 import com.angmas.mutation.domain.Vehicle;
+import com.google.common.collect.Maps;
 
 public enum AcordElementStartEvent {
 	
@@ -119,6 +122,16 @@ public enum AcordElementStartEvent {
 		
 	};
 	
-	private AcordElementStartEvent() {};
+	private static final Map<String, AcordElementStartEvent> nameIndex =
+	        Maps.newHashMapWithExpectedSize(AcordElementStartEvent.values().length);
+	static {
+	    for (AcordElementStartEvent element : AcordElementStartEvent.values()) {
+	        nameIndex.put(element.name(), element);
+	    }
+	}
+	public static AcordElementStartEvent lookupByName(String name) {
+	    return nameIndex.get(name);
+	}
+	
 	public abstract void doStartProcessing(AcordEventProcessorHelper helper);
 }

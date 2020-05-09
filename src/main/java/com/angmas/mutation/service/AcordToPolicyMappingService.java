@@ -46,14 +46,11 @@ public class AcordToPolicyMappingService {
 		helper.setStartElement();
 		helper.setNextEvent();
 		
-		try {
-			AcordElementStartEvent acordElementStart = AcordElementStartEvent.valueOf(helper.startElementName);
+		AcordElementStartEvent acordElementStart = AcordElementStartEvent.lookupByName(helper.startElementName);
+		
+		if (acordElementStart != null) {
 			acordElementStart.doStartProcessing(helper);
 		}
-		catch (IllegalArgumentException  e) {
-			// do nothing if element is not in enum list
-		}
-		
 		
 	}
 
@@ -61,13 +58,12 @@ public class AcordToPolicyMappingService {
 		
 		helper.setEndElement();
 		
-		try {
-			AcordElementEndEvent acordElementEnd = AcordElementEndEvent.valueOf(helper.endElementName);
+		AcordElementEndEvent acordElementEnd = AcordElementEndEvent.lookupByName(helper.endElementName);
+		
+		if (acordElementEnd != null) {
 			acordElementEnd.doEndProcessing(helper);
 		}
-		catch (IllegalArgumentException  e) {
-			// do nothing if element is not in enum list
-		}
+		
 	}
 	
 	private XMLEventReader getEventReaderInstance(String xml) throws FactoryConfigurationError, XMLStreamException {

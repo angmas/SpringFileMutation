@@ -1,5 +1,9 @@
 package com.angmas.mutation.service;
 
+import java.util.Map;
+
+import com.google.common.collect.Maps;
+
 public enum AcordElementEndEvent {
 	
 	CURRENTTERMAMT {
@@ -58,5 +62,16 @@ public enum AcordElementEndEvent {
 		
 	};
 
+	private static final Map<String, AcordElementEndEvent> nameIndex =
+	        Maps.newHashMapWithExpectedSize(AcordElementEndEvent.values().length);
+	static {
+	    for (AcordElementEndEvent element : AcordElementEndEvent.values()) {
+	        nameIndex.put(element.name(), element);
+	    }
+	}
+	public static AcordElementEndEvent lookupByName(String name) {
+	    return nameIndex.get(name);
+	}
+	
 	public abstract void doEndProcessing(AcordEventProcessorHelper helper);
 }
