@@ -52,12 +52,10 @@ public class AcordEventProcessorHelper {
 		endElement = event.asEndElement();
 	}
 	public String getStartElementName() {
-//		startElement = event.asStartElement();
 		return startElement.getName().getLocalPart();
 	}
 	
 	public String getEndElementName() {
-//		endElement = event.asEndElement();
 		return endElement.getName().getLocalPart();
 	}
 }
