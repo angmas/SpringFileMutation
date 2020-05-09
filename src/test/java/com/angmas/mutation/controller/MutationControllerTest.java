@@ -62,7 +62,7 @@ class MutationControllerTest {
 	void performance() throws JsonProcessingException {
 		MutationController mc = new MutationController();
 		
-		for(int i=0; i < 10; i++) {
+		for(int i=0; i < 100; i++) {
 			long startTime = System.nanoTime();
 			
 			List<Policy> policies = mc.getPolicy(xmlString);
