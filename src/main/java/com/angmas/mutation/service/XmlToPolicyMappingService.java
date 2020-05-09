@@ -62,8 +62,10 @@ public class XmlToPolicyMappingService {
 
 	private void doStartElementProcessing(XMLEvent event) throws XMLStreamException {
 		StartElement startElement = event.asStartElement();
+		String startElementName = startElement.getName().getLocalPart();
+		event = xmlEventReader.nextEvent();
 		
-		switch (startElement.getName().getLocalPart()) {
+		switch (startElementName) {
 		case "PersAutoPolicyQuoteInqRq":
 			doPersAutoPolicyQuoteInsRqStartProcessing(event);
 			break;
@@ -132,7 +134,6 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersAutoPolicyQuoteInsRqStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		policy = new Policy();
 	}
 
@@ -141,7 +142,6 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersVehStartProcessing(XMLEvent event, StartElement startElement) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		vehicle = new Vehicle();
 		Attribute id = startElement.getAttributeByName(new QName("id"));
 		vehicle.setId(id.getValue());
@@ -152,7 +152,6 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersDriverStartProcessing(XMLEvent event, StartElement startElement) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		driver = new Driver();
 		Attribute id = startElement.getAttributeByName(new QName("id"));
 		driver.setId(id.getValue());		
@@ -165,7 +164,6 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doPersPolicyStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		inPersPolicyNode = true;
 	}
 
@@ -176,7 +174,6 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doInsuredOrPrincipalRoleCdStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		String insuredOrPrincipalRoleCd = event.asCharacters().getData();
 		isInsuredOrPrincipalRole = insuredOrPrincipalRoleCd.equalsIgnoreCase("Insured");
 	}
@@ -192,22 +189,18 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doAmtStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		amtHold = event.asCharacters().getData();
 	}
 
 	private void doLOBCdStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		lobCdHold = event.asCharacters().getData();
 	}
 
 	private void doCommercialNameStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		customerNameHold = event.asCharacters().getData();
 	}
 
 	private void doPolicyNumberStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		policy.setPolicyNumber(event.asCharacters().getData());
 	}
 
@@ -218,22 +211,18 @@ public class XmlToPolicyMappingService {
 	}
 
 	private void doManufacturerStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		vehicle.setMake(event.asCharacters().getData());
 	}
 
 	private void doModelStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		vehicle.setModel(event.asCharacters().getData());		
 	}
 
 	private void doModelYearStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		vehicle.setModelYear(event.asCharacters().getData());
 	}
 
 	private void doBirthDtStartProcessing(XMLEvent event) throws XMLStreamException {
-		event = xmlEventReader.nextEvent();
 		driver.setBirthDate(event.asCharacters().getData());		
 	}
 
