@@ -41,7 +41,10 @@ class MutationControllerTest {
 	@Test
 	void returnsJSON() throws JsonProcessingException {
 		MutationController mc = new MutationController();
+		long startTime = System.nanoTime();
 		List<Policy> policies = mc.getPolicy(xmlString);
+		long endTime = System.nanoTime();
+        System.out.println("Time difference ::: "+(endTime-startTime)+" nano seconds");
 		ObjectWriter ow = new ObjectMapper().writer();
 		assertEquals(jsonString, ow.writeValueAsString(policies));
 	}
