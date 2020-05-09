@@ -41,14 +41,9 @@ class MutationControllerTest {
 	@Test
 	void returnsJSON() throws JsonProcessingException {
 		MutationController mc = new MutationController();
-		
-        long startTime = System.nanoTime();
         
 		List<Policy> policies = mc.getPolicy(xmlString);
 		
-		long endTime = System.nanoTime();
-        System.out.println("Time difference ::: "+(endTime-startTime)+" nano seconds");
-        
 		ObjectWriter ow = new ObjectMapper().writer();
 		assertEquals(jsonString, ow.writeValueAsString(policies));
 	}
@@ -62,6 +57,21 @@ class MutationControllerTest {
 		String expectedMessage = "Cannot process this XML";
 		String actualMessage = exception.getMessage();
 		assertTrue(actualMessage.contains(expectedMessage));
+	}
+	
+	@Test
+	void performance() throws JsonProcessingException {
+		MutationController mc = new MutationController();
+		
+		for(int i=0; i < 100; i++) {
+			long startTime = System.nanoTime();
+			
+			List<Policy> policies = mc.getPolicy(xmlString);
+			
+			long endTime = System.nanoTime();
+			
+	        System.out.println("Time difference ::: "+(endTime-startTime)+" nano seconds");
+		}
 	}
 
 }
