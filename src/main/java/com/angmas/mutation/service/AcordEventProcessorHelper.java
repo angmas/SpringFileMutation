@@ -31,6 +31,8 @@ public class AcordEventProcessorHelper {
 	public String amtHold;
 	public Vehicle vehicle;
 	public Driver driver;
+	public String startElementName;
+	public String endElementName;
 	
 	public AcordEventProcessorHelper() {
 		this.policies = new ArrayList<>();
@@ -46,18 +48,12 @@ public class AcordEventProcessorHelper {
 	
 	public void setStartElement() {
 		startElement = event.asStartElement();
+		startElementName = startElement.getName().getLocalPart().toUpperCase();
 	}
 	
 	public void setEndElement() {
 		endElement = event.asEndElement();
-	}
-	public String getStartElementName() {
-//		startElement = event.asStartElement();
-		return startElement.getName().getLocalPart();
+		endElementName = endElement.getName().getLocalPart().toUpperCase();
 	}
 	
-	public String getEndElementName() {
-//		endElement = event.asEndElement();
-		return endElement.getName().getLocalPart();
-	}
 }
