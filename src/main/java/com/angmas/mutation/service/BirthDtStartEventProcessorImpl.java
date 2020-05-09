@@ -6,7 +6,7 @@ public class BirthDtStartEventProcessorImpl implements AcordElementStartEventPro
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.driver.setBirthDate(helper.getElementData());
 	}
 

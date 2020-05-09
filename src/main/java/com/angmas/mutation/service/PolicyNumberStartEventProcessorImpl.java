@@ -6,7 +6,7 @@ public class PolicyNumberStartEventProcessorImpl implements AcordElementStartEve
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.policy.setPolicyNumber(helper.getElementData());
 	}
 

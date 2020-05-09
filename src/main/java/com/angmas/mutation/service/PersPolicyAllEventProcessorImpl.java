@@ -6,7 +6,7 @@ public class PersPolicyAllEventProcessorImpl implements AcordElementEndEventProc
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.inPersPolicyNode = true;
 	}
 

@@ -6,7 +6,7 @@ public class ModelYearsStartEventProcessorImpl implements AcordElementStartEvent
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.vehicle.setModelYear(helper.getElementData());
 	}
 

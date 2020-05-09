@@ -51,6 +51,8 @@ public class AcordToPolicyMappingService {
 		
 		AcordElementStartEventProcessor elementStartProcessor = acordStartFactory.getProcessor(helper.getStartElementName());
 		
+		helper.setNextEvent();
+		
 		if (elementStartProcessor != null) {
 			elementStartProcessor.doStartProcessing(helper);
 		}

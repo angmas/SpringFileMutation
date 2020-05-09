@@ -6,7 +6,7 @@ public class CommercialNameStartEventProcessorImpl implements AcordElementStartE
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.customerNameHold = helper.getElementData();
 	}
 

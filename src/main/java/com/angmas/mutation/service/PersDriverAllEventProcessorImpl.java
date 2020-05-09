@@ -10,7 +10,7 @@ public class PersDriverAllEventProcessorImpl implements AcordElementEndEventProc
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.driver = new Driver();
 		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
 		helper.driver.setId(id.getValue());		

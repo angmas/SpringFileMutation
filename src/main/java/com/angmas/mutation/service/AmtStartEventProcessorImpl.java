@@ -6,7 +6,6 @@ public class AmtStartEventProcessorImpl implements AcordElementStartEventProcess
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
 		helper.amtHold = helper.getElementData();
 	}
 

@@ -8,7 +8,7 @@ public class PersAutoPolicyQuoteInqRqAllEventProcessorImpl implements AcordEleme
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.policy = new Policy();
 
 	}

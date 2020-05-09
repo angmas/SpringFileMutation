@@ -10,7 +10,7 @@ public class PersVehAllEventProcessorImpl implements AcordElementStartEventProce
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.vehicle = new Vehicle();
 		Attribute id = helper.startElement.getAttributeByName(new QName("id"));
 		helper.vehicle.setId(id.getValue());

@@ -6,7 +6,7 @@ public class LobCdStartEventProcessorImpl implements AcordElementStartEventProce
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.lobCdHold = helper.getElementData();
 	}
 

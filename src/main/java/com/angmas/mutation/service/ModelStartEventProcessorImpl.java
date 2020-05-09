@@ -6,7 +6,7 @@ public class ModelStartEventProcessorImpl implements AcordElementStartEventProce
 
 	@Override
 	public void doStartProcessing(AcordEventProcessorHelper helper) throws XMLStreamException {
-		helper.setNextEvent();
+		
 		helper.vehicle.setModel(helper.getElementData());	
 	}
 
