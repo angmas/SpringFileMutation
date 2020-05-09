@@ -27,4 +27,4 @@ local.properties
 .settings/
 .loadpath
 /target/
-app.log
+app.log*
