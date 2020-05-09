@@ -1,5 +1,7 @@
 package com.angmas.mutation.service;
 
+import com.google.common.base.Enums;
+
 public enum AcordElementEndEvent {
 	
 	CURRENTTERMAMT {
@@ -59,4 +61,8 @@ public enum AcordElementEndEvent {
 	};
 
 	public abstract void doEndProcessing(AcordEventProcessorHelper helper);
+	
+	public static AcordElementEndEvent getIfPresent(String name) {
+		return Enums.getIfPresent(AcordElementEndEvent.class, name).orNull();
+	}
 }

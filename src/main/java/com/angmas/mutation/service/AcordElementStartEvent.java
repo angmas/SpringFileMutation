@@ -2,7 +2,7 @@ package com.angmas.mutation.service;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.events.Attribute;
-
+import com.google.common.base.Enums;
 import com.angmas.mutation.domain.Driver;
 import com.angmas.mutation.domain.Policy;
 import com.angmas.mutation.domain.Vehicle;
@@ -119,6 +119,9 @@ public enum AcordElementStartEvent {
 		
 	};
 	
-	private AcordElementStartEvent() {};
 	public abstract void doStartProcessing(AcordEventProcessorHelper helper);
+	
+	public static AcordElementStartEvent getIfPresent(String name) {
+		return Enums.getIfPresent(AcordElementStartEvent.class, name).orNull();
+	}
 }

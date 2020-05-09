@@ -45,28 +45,22 @@ public class AcordToPolicyMappingService {
 
 		helper.setStartElement();
 		helper.setNextEvent();
+	
+		AcordElementStartEvent acordElementStartEvent = AcordElementStartEvent.getIfPresent(helper.startElementName);
 		
-		try {
-			AcordElementStartEvent acordElementStart = AcordElementStartEvent.valueOf(helper.startElementName);
-			acordElementStart.doStartProcessing(helper);
+		if (acordElementStartEvent != null) {
+			acordElementStartEvent.doStartProcessing(helper);
 		}
-		catch (IllegalArgumentException  e) {
-			// do nothing if element is not in enum list
-		}
-		
-		
+			
 	}
 
 	private void doEndElementProcessing() throws XMLStreamException {
 		
 		helper.setEndElement();
 		
-		try {
-			AcordElementEndEvent acordElementEnd = AcordElementEndEvent.valueOf(helper.endElementName);
-			acordElementEnd.doEndProcessing(helper);
-		}
-		catch (IllegalArgumentException  e) {
-			// do nothing if element is not in enum list
+		AcordElementEndEvent acordElementEndEvent = AcordElementEndEvent.getIfPresent(helper.endElementName);
+		if (acordElementEndEvent != null) {
+			acordElementEndEvent.doEndProcessing(helper);
 		}
 	}
 	
