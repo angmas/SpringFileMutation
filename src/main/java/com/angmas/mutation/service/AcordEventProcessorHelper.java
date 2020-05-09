@@ -18,19 +18,28 @@ import com.angmas.mutation.domain.Vehicle;
 
 public class AcordEventProcessorHelper {
 	
+	// Stax objects
 	public XMLEventReader xmlEventReader;
 	public XMLEvent event;
 	public StartElement startElement;
 	public EndElement endElement;
+
+	// Booleans for decision making
+	public boolean inPersPolicyNode;
+	public boolean isInsuredOrPrincipalRole;
+
+	// temp hold area
+	public String amtHold;
+	public String customerNameHold;
+	public String lobCdHold;
+	
+	// Domain objects used to build the policy object
 	public List<Policy> policies;
 	public Policy policy;
-	public String customerNameHold;
-	public boolean isInsuredOrPrincipalRole;
-	public String lobCdHold;
-	public boolean inPersPolicyNode;
-	public String amtHold;
 	public Vehicle vehicle;
 	public Driver driver;
+	
+	
 	
 	public AcordEventProcessorHelper() {
 		this.policies = new ArrayList<>();
@@ -58,4 +67,5 @@ public class AcordEventProcessorHelper {
 	public String getEndElementName() {
 		return endElement.getName().getLocalPart();
 	}
+	
 }
