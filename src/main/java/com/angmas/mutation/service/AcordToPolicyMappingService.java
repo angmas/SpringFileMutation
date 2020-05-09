@@ -14,13 +14,9 @@ import com.angmas.mutation.domain.Policy;
 public class AcordToPolicyMappingService {
 
 	private AcordEventProcessorHelper helper;
-	private AcordStartEventProcessorFactory acordStartFactory;
-	private AcordEndEventProcessorFactory acordEndFactory;
 	
 	public AcordToPolicyMappingService() {
 		this.helper = new AcordEventProcessorHelper();
-		acordStartFactory = new AcordStartEventProcessorFactory();
-		acordEndFactory = new AcordEndEventProcessorFactory();
 	}
 
 	public List<Policy> mapPolicies(String xmlString) throws XMLStreamException {
