@@ -28,3 +28,7 @@ local.properties
 .loadpath
 /target/
 app.log*
+
+# intellij
+.idea
+*.iml
