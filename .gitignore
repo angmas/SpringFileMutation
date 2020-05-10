@@ -9,7 +9,10 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
-.metadata
+
+# project log files
+*.log
+*.log.*
 
 # eclipse specific
 *.pydevproject
@@ -27,4 +30,8 @@ local.properties
 .settings/
 .loadpath
 /target/
-app.log
+
+
+#intellij
+.idea
+*.iml
