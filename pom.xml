@@ -7,11 +7,11 @@
 		<version>2.2.6.RELEASE</version>
 		<relativePath/>		<!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.springFileMutation</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.angmas</groupId>
+	<artifactId>mutation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>mutation</name>
+	<description>Transforms ACORD XML to JSON Policy schema</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

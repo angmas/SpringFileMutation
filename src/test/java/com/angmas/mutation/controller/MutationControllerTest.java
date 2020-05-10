@@ -7,10 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.angmas.mutation.domain.Policy;
@@ -56,7 +53,8 @@ class MutationControllerTest {
 		String actualMessage = exception.getMessage();
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
-	
+
+	@Disabled
 	@Test
 	void performance() throws JsonProcessingException {
 		MutationController mc = new MutationController();
