@@ -45,7 +45,7 @@ public class AcordToPolicyMappingService {
 
 		helper.setStartElement();
 		
-		AcordElementStartEvent acordElementStartEvent = AcordElementStartEvent.getIfPresent(helper.getStartElementName().toUpperCase());
+		AcordElementStartEvent acordElementStartEvent = AcordElementStartEvent.lookupByName(helper.getStartElementName().toUpperCase());
 
 		helper.setNextEvent();
 		
@@ -58,7 +58,7 @@ public class AcordToPolicyMappingService {
 
 	private void doEndElementProcessing() throws XMLStreamException {
 		helper.setEndElement();
-		AcordElementEndEvent acordElementEndEvent = AcordElementEndEvent.getIfPresent(helper.getEndElementName().toUpperCase());
+		AcordElementEndEvent acordElementEndEvent = AcordElementEndEvent.lookupByName(helper.getEndElementName().toUpperCase());
 		if (acordElementEndEvent != null) {
 			AcordElementEndEventProcessor elementEndProcessor = acordElementEndEvent.getEndEventProcessor();
 			elementEndProcessor.doEndProcessing(helper);

@@ -1,6 +1,9 @@
 package com.angmas.mutation.service;
 
+import java.util.Map;
+
 import com.google.common.base.Enums;
+import com.google.common.collect.Maps;
 
 public enum AcordElementStartEvent {
 	
@@ -122,8 +125,15 @@ public enum AcordElementStartEvent {
 	
 	public abstract AcordElementStartEventProcessor getStartEventProcessor();
 	
-	public static AcordElementStartEvent getIfPresent(String name) {
-		return Enums.getIfPresent(AcordElementStartEvent.class, name).orNull();
+	private static final Map<String, AcordElementStartEvent> nameIndex =
+	        Maps.newHashMapWithExpectedSize(AcordElementStartEvent.values().length);
+	static {
+	    for (AcordElementStartEvent element : AcordElementStartEvent.values()) {
+	        nameIndex.put(element.name(), element);
+	    }
+	}
+	public static AcordElementStartEvent lookupByName(String name) {
+	    return nameIndex.get(name);
 	}
 	
 }
