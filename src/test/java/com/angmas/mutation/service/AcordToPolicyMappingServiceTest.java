@@ -26,37 +26,28 @@ class AcordToPolicyMappingServiceTest {
 	Logger logger = LoggerFactory.getLogger(AcordToPolicyMappingServiceTest.class);
 	
 	private static String xmlString;
-	private AcordToPolicyMappingService xml2policyObject;
+	private AcordToPolicyMappingService acordMapper;
 
 	@BeforeAll
 	static void setup() throws IOException {
 		xmlString = new String(Files.readAllBytes(Paths.get("./data.xml")));
-//		Path currentDir = Paths.get("data.xml");
-//		System.out.println(currentDir.toAbsolutePath()); 
-//		System.out.println(xmlString); 
-		
 	}
 	
 	@BeforeEach
-	void init() throws Exception {
-		xml2policyObject = new AcordToPolicyMappingService();
+	void init() {
+		acordMapper = new AcordToPolicyMappingService();
 	}
 	
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
-	
 	@Test
 	void returnsListOfPolicies() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertEquals(3, policies.size());
 	}
 	
 	@Test
 	void mapsPolicyNumbers() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertAll("policy numbers",
 			() -> assertEquals( "4843607801", policies.get(0).getPolicyNumber()),
 			() -> assertEquals("XT678", policies.get(1).getPolicyNumber()),
@@ -66,7 +57,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapsCustomerNames() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertAll("customer names",
 			() -> assertEquals( "Tyrion Spiegelman", policies.get(0).getCustomerName()),
 			() -> assertEquals("Fred Flinstone", policies.get(1).getCustomerName()),
@@ -76,7 +67,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapsPolicyType() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertAll("policy types",
 				() -> assertEquals( "AUTOPA", policies.get(0).getPolicyType()),
 				() -> assertEquals("AUTOPB", policies.get(1).getPolicyType()),
@@ -86,7 +77,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapsTotalPremium() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertAll("total premiums",
 				() -> assertEquals( new BigDecimal("2135.19"), policies.get(0).getTotalPremium()),
 				() -> assertEquals(new BigDecimal("300.00"), policies.get(1).getTotalPremium()),
@@ -96,7 +87,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void createsVehicleObjects() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertAll("vehicle counts",
 				() -> assertEquals( 5, policies.get(0).getVehicles().size()),
 				() -> assertEquals( 1, policies.get(1).getVehicles().size()),
@@ -106,7 +97,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapVehicleIds() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle ids",
 				() -> assertEquals( "V1", vehicles.get(0).getId()),
@@ -119,7 +110,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapVehicleMake() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle make",
 				() -> assertEquals( "TOYT", vehicles.get(0).getMake()),
@@ -132,7 +123,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapVehicleModel() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle models",
 				() -> assertEquals( "AVALON XL/XLS/TR/LTD", vehicles.get(0).getModel()),
@@ -145,7 +136,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapVehicleModelYear() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Vehicle> vehicles = policies.get(0).getVehicles();
 		assertAll("vehicle models",
 				() -> assertEquals( "2006", vehicles.get(0).getModelYear()),
@@ -158,7 +149,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void createsDriverObjects() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		assertAll("driver counts",
 				() -> assertEquals( 1, policies.get(0).getDrivers().size()),
 				() -> assertEquals( 2, policies.get(1).getDrivers().size()),
@@ -168,7 +159,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapDriverId() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver id",
 				() -> assertEquals( "D1", drivers.get(0).getId()),
@@ -179,18 +170,18 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void mapDriverName() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver name",
 				() -> assertEquals( "Mickey Mouse", drivers.get(0).getDriverName()),
-				() -> assertEquals( null, drivers.get(1).getDriverName()),
+				() -> assertNull(drivers.get(1).getDriverName()),
 				() -> assertEquals( "Goofy", drivers.get(2).getDriverName())
 		);
 	}
 	
 	@Test
 	void mapDriverBirthDate() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver birth date",
 				() -> assertEquals( "1950-03-01", drivers.get(0).getBirthDate().toString("yyyy-MM-dd")),
@@ -201,7 +192,7 @@ class AcordToPolicyMappingServiceTest {
 	
 	@Test
 	void getDriversAge() throws XMLStreamException {
-		List<Policy> policies = xml2policyObject.mapPolicies(xmlString);
+		List<Policy> policies = acordMapper.mapPolicies(xmlString);
 		List<Driver> drivers = policies.get(2).getDrivers();
 		assertAll("driver birth date",
 				() -> assertEquals( 70, drivers.get(0).getAge()),
