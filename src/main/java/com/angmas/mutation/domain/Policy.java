@@ -24,21 +24,20 @@ public class Policy {
 
 	public Policy() {
 		super();
-		this.vehicles = new ArrayList<Vehicle>();
-		this.drivers = new ArrayList<Driver>();
+
+		this.vehicles = new ArrayList<>();
+		this.drivers = new ArrayList<>();
 	}
 
+//	public BigDecimal getTotalPremium() {
+//		return totalPremium.setScale(2);
+//	}
 	public BigDecimal getTotalPremium() {
-		return totalPremium.setScale(2);
+		return totalPremium;
 	}
 
-	public void setTotalPremium(String amt) {
-		try {
-			BigDecimal bigDecimalamt = new BigDecimal(amt);
-			this.totalPremium = bigDecimalamt;
-		} catch (Exception e) {
-			this.totalPremium = null;
-		}
+	public void setTotalPremium(BigDecimal amount) {
+		this.totalPremium = amount;
 	}
 
 	public String getPolicyType() {
