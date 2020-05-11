@@ -1,8 +1,8 @@
 package com.angmas.mutation.domain;
 
 
+import com.angmas.mutation.common.AgeCalculator;
 import org.joda.time.LocalDate;
-import org.joda.time.Years;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,13 +17,12 @@ public class Driver {
 		return birthDate;
 	}
 
-	public void setBirthDate(String string) {
-		this.birthDate = new LocalDate(string);
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 
-	public int getAge() {
-		Years age = Years.yearsBetween(birthDate, LocalDate.now());
-		return age.getYears();
+	public Integer getAge() {
+		return AgeCalculator.getDifferenceInYears(birthDate);
 	}
 	
 	public String getDriverName() {
